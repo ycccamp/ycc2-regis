@@ -4,7 +4,6 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Input,
   Select,
 } from '@chakra-ui/core'
 

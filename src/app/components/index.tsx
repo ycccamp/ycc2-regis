@@ -26,7 +26,7 @@ const AppComponent: React.FC = props => {
       <Global />
       <Helmet />
       <Box as='main' height='100%' overflow='auto'>
-        <Flex justifyContent='center' alignItems='center' height='100%'>
+        <Flex justifyContent='center' py={10}>
           <Box width={6 / 10} borderRadius={4} p={10} bg='white'>
             <Heading size='lg' pb={5}>
               ลงทะเบียนเข้าค่าย Young Creator's Camp
