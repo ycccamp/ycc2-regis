@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Button, Flex, Spinner, Text } from '@chakra-ui/core'
 
-import { auth } from 'firebase'
+import { auth } from 'firebase/app'
 import 'firebase/auth'
 import { firebase } from '../../core/services/firebase'
 
