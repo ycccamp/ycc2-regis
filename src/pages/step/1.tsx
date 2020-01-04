@@ -1,6 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Box, Button, Flex, Heading, Stack, useToast } from '@chakra-ui/core'
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Spinner,
+  Stack,
+  useToast,
+} from '@chakra-ui/core'
 
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
@@ -91,27 +99,32 @@ const shirtSizes = {
 const Step1Page: React.FC = props => {
   const user = useAuth()
 
+  const [isFormLoad, setIsFormLoad] = useState(true)
+
+  const [form, setForm] = useState({
+    firstname: '',
+    lastname: '',
+    gender: '',
+    nickname: '',
+    grade: '',
+    school: '',
+    religion: '',
+    phone: '',
+    email: '',
+    socialMedia: '',
+    shirtSize: '',
+    bloodGroup: '',
+    address: '',
+    disease: '',
+    foodAllergy: '',
+    drugAllergy: '',
+    activity: '',
+    expectation: '',
+  })
+
   const formik = useFormik({
-    initialValues: {
-      firstname: '',
-      lastname: '',
-      gender: '',
-      nickname: '',
-      grade: '',
-      school: '',
-      religion: '',
-      phone: '',
-      email: '',
-      socialMedia: '',
-      shirtSize: '',
-      bloodGroup: '',
-      address: '',
-      disease: '',
-      foodAllergy: '',
-      drugAllergy: '',
-      activity: '',
-      expectation: '',
-    },
+    initialValues: form,
+    enableReinitialize: true,
     onSubmit: async (values, actions) => {
       const instance = firebase()
 
@@ -138,11 +151,36 @@ const Step1Page: React.FC = props => {
     validationSchema: formSchema,
   })
 
+  useEffect(() => {
+    if (user !== null) {
+      const instance = firebase()
+
+      instance
+        .firestore()
+        .collection('users')
+        .doc(user.uid)
+        .collection('forms')
+        .doc('personal')
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            const data = doc.data()
+            setForm(prev => ({ ...prev, ...data }))
+          }
+        })
+        .finally(() => {
+          setIsFormLoad(false)
+        })
+    }
+  }, [user])
+
   return (
     <React.Fragment>
       <Heading size='md'>STEP 1: ข้อมูลส่วนตัว</Heading>
-      <Box>
-        <form onSubmit={formik.handleSubmit}>
+      {isFormLoad ? (
+        <Spinner />
+      ) : (
+        <Box as='form' onSubmit={formik.handleSubmit}>
           <Box py={4}>
             <Flex>
               <Box width={1 / 2} p={2}>
@@ -316,8 +354,8 @@ const Step1Page: React.FC = props => {
           <Stack spacing={4} isInline justifyContent='center'>
             <Button
               mt={4}
-              isLoading={formik.isSubmitting}
               type='submit'
+              isDisabled={true}
               leftIcon='chevron-left'>
               ขั้นตอนก่อนหน้า
             </Button>
@@ -330,8 +368,8 @@ const Step1Page: React.FC = props => {
               ขั้นตอนถัดไป
             </Button>
           </Stack>
-        </form>
-      </Box>
+        </Box>
+      )}
     </React.Fragment>
   )
 }
