@@ -4,8 +4,10 @@ import { Flex, Text } from '@chakra-ui/core'
 
 const IndexPage: React.FC = props => {
   return (
-    <Flex justifyContent='center'>
-      <Text>OK</Text>
+    <Flex flexWrap='wrap' justifyContent='center' py={10}>
+      <Text width='100%' textAlign='center' pb={4}>
+        OK
+      </Text>
     </Flex>
   )
 }
