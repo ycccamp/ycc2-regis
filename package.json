@@ -12,6 +12,7 @@
     "dev": "next",
     "build": "next build",
     "export": "next export",
+    "firebase": "firebase",
     "start": "next build && next start",
     "test:types": "tsc",
     "test:lint": "tslint 'src/**/*.{ts,tsx}'"
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@types/react-helmet": "^5.0.15",
+    "firebase-tools": "^7.11.0",
     "prettier": "^1.19.1",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
