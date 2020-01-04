@@ -85,13 +85,7 @@ const Step1Page: React.FC = props => {
           <Input
             name='firstname'
             placeholder='ชื่อ'
-            isInvalid={
-              formik.errors.firstname !== undefined &&
-              formik.touched.firstname !== undefined
-            }
-            value={formik.values.firstname}
-            errorMessage={formik.errors.firstname}
-            onChange={formik.handleChange}
+            formik={formik}
             isRequired
           />
         </Box>
@@ -99,13 +93,7 @@ const Step1Page: React.FC = props => {
           <Input
             name='lastname'
             placeholder='นามสกุล'
-            isInvalid={
-              formik.errors.lastname !== undefined &&
-              formik.touched.lastname !== undefined
-            }
-            value={formik.values.lastname}
-            errorMessage={formik.errors.lastname}
-            onChange={formik.handleChange}
+            formik={formik}
             isRequired
           />
         </Box>
@@ -115,13 +103,7 @@ const Step1Page: React.FC = props => {
           <Input
             name='nickname'
             placeholder='ชื่อเล่น'
-            isInvalid={
-              formik.errors.nickname !== undefined &&
-              formik.touched.nickname !== undefined
-            }
-            value={formik.values.nickname}
-            errorMessage={formik.errors.nickname}
-            onChange={formik.handleChange}
+            formik={formik}
             isRequired
           />
         </Box>
@@ -129,14 +111,8 @@ const Step1Page: React.FC = props => {
           <Select
             name='gender'
             placeholder='เพศ'
-            isInvalid={
-              formik.errors.gender !== undefined &&
-              formik.touched.gender !== undefined
-            }
             options={genders}
-            value={formik.values.gender}
-            errorMessage={formik.errors.gender}
-            onChange={formik.handleChange}
+            formik={formik}
             isRequired
           />
         </Box>
@@ -146,14 +122,8 @@ const Step1Page: React.FC = props => {
           <Select
             name='grade'
             placeholder='ระดับชั้น'
-            isInvalid={
-              formik.errors.grade !== undefined &&
-              formik.touched.grade !== undefined
-            }
             options={grades}
-            value={formik.values.grade}
-            errorMessage={formik.errors.grade}
-            onChange={formik.handleChange}
+            formik={formik}
             isRequired
           />
         </Box>
@@ -161,13 +131,7 @@ const Step1Page: React.FC = props => {
           <Input
             name='school'
             placeholder='โรงเรียน'
-            isInvalid={
-              formik.errors.school !== undefined &&
-              formik.touched.school !== undefined
-            }
-            value={formik.values.school}
-            errorMessage={formik.errors.school}
-            onChange={formik.handleChange}
+            formik={formik}
             isRequired
           />
         </Box>
