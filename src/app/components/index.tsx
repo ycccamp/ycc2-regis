@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { Box, CSSReset, Flex, Heading, ThemeProvider } from '@chakra-ui/core'
 
-import { User } from 'firebase'
+import { useAuth } from '../../core/services/useAuth'
 
-import Auth from '../../core/components/auth'
+import Auth from './auth'
 import Global from './global'
 import Helmet from './helmet'
 
 const AppComponent: React.FC = props => {
   const { children } = props
 
-  const [auth, setAuth] = useState<User | undefined>()
+  const auth = useAuth()
 
   return (
     <ThemeProvider>
@@ -27,8 +27,8 @@ const AppComponent: React.FC = props => {
               <Heading size='lg'>
                 ลงทะเบียนเข้าค่าย Young Creator's Camp
               </Heading>
-              {auth === undefined ? (
-                <Auth onSuccess={user => setAuth(user)} />
+              {auth === null ? (
+                <Auth user={auth} />
               ) : (
                 <React.Fragment>{children}</React.Fragment>
               )}

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 
 import { Button, Flex, Spinner, Text } from '@chakra-ui/core'
 
-import { auth, User } from 'firebase'
+import { auth } from 'firebase'
 import 'firebase/auth'
-import { firebase } from '../services/firebase'
+import { firebase } from '../../core/services/firebase'
 
 import { IAuthProps } from '../@types/IAuthProps'
 
 const AuthComponent: React.FC<IAuthProps> = props => {
-  const { onSuccess } = props
+  const { user } = props
 
   const [stage, setStage] = useState<number>(0)
 
@@ -36,22 +36,12 @@ const AuthComponent: React.FC<IAuthProps> = props => {
   }
 
   useEffect(() => {
-    const instance = firebase()
-
-    const listener = instance.auth().onAuthStateChanged(res => {
-      if (res === null) {
-        setStage(1)
-      } else {
-        setStage(2)
-
-        if (onSuccess) {
-          onSuccess(res)
-        }
-      }
-    })
-
-    return listener
-  }, [])
+    if (user === null) {
+      setStage(1)
+    } else {
+      setStage(2)
+    }
+  }, [user])
 
   return (
     <React.Fragment>
