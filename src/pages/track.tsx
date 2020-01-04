@@ -26,7 +26,7 @@ const TrackPage: React.FC = props => {
           track,
         })
         .then(async () => {
-          await Router.push('/step/1')
+          await Router.push('/step/1/')
         })
         .catch(() => {
           useToast()({

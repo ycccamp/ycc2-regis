@@ -56,7 +56,7 @@ const Step1Page: React.FC = props => {
             .doc('parent')
             .set(values)
 
-          Router.push('/step/3')
+          Router.push('/step/3/')
         }
       } catch {
         useToast()({

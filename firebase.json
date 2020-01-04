@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "out",
+    "trailingSlash": true,
     "cleanUrls": true
   },
   "firestore": {

@@ -129,7 +129,7 @@ const Step1Page: React.FC = props => {
             .doc('personal')
             .set(values)
 
-          Router.push('/step/2')
+          Router.push('/step/2/')
         }
       } catch {
         useToast()({

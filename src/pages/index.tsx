@@ -23,7 +23,7 @@ const IndexPage: React.FC = props => {
 
     // Step 2: Check is user choosen track
     if (!userData.exists) {
-      return await Router.push('/track')
+      return await Router.push('/track/')
     }
 
     // Step 3: Check is form step 1 is submitted
@@ -36,7 +36,7 @@ const IndexPage: React.FC = props => {
       .get()
 
     if (!personalForm.exists) {
-      return await Router.push('/step/1')
+      return await Router.push('/step/1/')
     }
 
     // Step 4: Check is form step 2 is submitted
@@ -49,7 +49,7 @@ const IndexPage: React.FC = props => {
       .get()
 
     if (!parentForm.exists) {
-      return await Router.push('/step/2')
+      return await Router.push('/step/2/')
     }
 
     // Step 5: Check is form step 3 is submitted
@@ -62,7 +62,7 @@ const IndexPage: React.FC = props => {
       .get()
 
     if (!generalForm.exists) {
-      return await Router.push('/step/3')
+      return await Router.push('/step/3/')
     }
 
     // Step 6: Check is form step 4 is submitted
@@ -75,7 +75,7 @@ const IndexPage: React.FC = props => {
       .get()
 
     if (!trackForm.exists) {
-      return await Router.push('/step/4')
+      return await Router.push('/step/4/')
     }
   }
 
