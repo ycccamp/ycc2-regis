@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
+import Router from 'next/router'
+
 import {
   Box,
   Button,
@@ -21,18 +23,9 @@ import Select from '../../core/components/form/select'
 import Textarea from '../../core/components/form/textarea'
 
 const formSchema = object().shape({
-  firstname: string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-  lastname: string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-  nickname: string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+  firstname: string().required('Required'),
+  lastname: string().required('Required'),
+  nickname: string().required('Required'),
   gender: string().required('Required'),
   grade: string().required('Required'),
   school: string().required('Required'),
@@ -137,6 +130,8 @@ const Step1Page: React.FC = props => {
             .collection('forms')
             .doc('personal')
             .set(values)
+
+          Router.push('/step/2')
         }
       } catch {
         useToast()({
@@ -178,7 +173,9 @@ const Step1Page: React.FC = props => {
     <React.Fragment>
       <Heading size='md'>STEP 1: ข้อมูลส่วนตัว</Heading>
       {isFormLoad ? (
-        <Spinner />
+        <Flex py={10} justifyContent='center'>
+          <Spinner />
+        </Flex>
       ) : (
         <Box as='form' onSubmit={formik.handleSubmit}>
           <Box py={4}>
@@ -352,11 +349,7 @@ const Step1Page: React.FC = props => {
             </Box>
           </Box>
           <Stack spacing={4} isInline justifyContent='center'>
-            <Button
-              mt={4}
-              type='submit'
-              isDisabled={true}
-              leftIcon='chevron-left'>
+            <Button mt={4} isDisabled={true} leftIcon='chevron-left'>
               ขั้นตอนก่อนหน้า
             </Button>
             <Button
