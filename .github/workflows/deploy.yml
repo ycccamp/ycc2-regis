@@ -70,9 +70,9 @@ jobs:
         run: |
           yarn build
           yarn export
-      - name: "Deploy: Install Firebase Tools"
-        run: |
-          yarn global add firebase-tools
       - name: "Deploy: Upload to Firebase"
+        env:
+          FIREBASE_DEPLOY_KEY: ${{ secrets.FIREBASE_DEPLOY_KEY }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
         run: |
-          firebase deploy -m "Automatic deployment from GitHub Actions" --non-interactive --token $FIREBASE_DEPLOY_KEY --project $FIREBASE_PROJECT_ID
+          yarn firebase deploy -m "Automatic deployment from GitHub Actions" --non-interactive --token $FIREBASE_DEPLOY_KEY --project $FIREBASE_PROJECT_ID
