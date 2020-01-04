@@ -1,9 +1,12 @@
 import React from 'react'
 
-import { Box, Button, Flex, Stack } from '@chakra-ui/core'
+import { Box, Button, Flex, Heading, Stack, useToast } from '@chakra-ui/core'
 
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
+
+import { firebase } from '../../core/services/firebase'
+import { useAuth } from '../../core/services/useAuth'
 
 import Input from '../../core/components/form/input'
 import Select from '../../core/components/form/select'
@@ -86,6 +89,8 @@ const shirtSizes = {
 }
 
 const Step1Page: React.FC = props => {
+  const user = useAuth()
+
   const formik = useFormik({
     initialValues: {
       firstname: '',
@@ -107,197 +112,227 @@ const Step1Page: React.FC = props => {
       activity: '',
       expectation: '',
     },
-    onSubmit: (values, actions) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2))
-        actions.setSubmitting(false)
-      }, 1000)
+    onSubmit: async (values, actions) => {
+      const instance = firebase()
+
+      try {
+        if (user !== null) {
+          await instance
+            .firestore()
+            .collection('users')
+            .doc(user.uid)
+            .collection('forms')
+            .doc('personal')
+            .set(values)
+        }
+      } catch {
+        useToast()({
+          title: 'เกิดข้อผิดพลาด',
+          description: 'ไม่สามารถบันทึกข้อมูลได้สำเร็จ กรุณาลองใหม่อีกครั้ง',
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+        })
+      }
     },
     validationSchema: formSchema,
   })
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <Box py={4}>
-        <Flex>
-          <Box width={1 / 2} p={2}>
-            <Input
-              name='firstname'
-              placeholder='ชื่อ'
-              formik={formik}
-              isRequired
-            />
+    <React.Fragment>
+      <Heading size='md'>STEP 1: ข้อมูลส่วนตัว</Heading>
+      <Box>
+        <form onSubmit={formik.handleSubmit}>
+          <Box py={4}>
+            <Flex>
+              <Box width={1 / 2} p={2}>
+                <Input
+                  name='firstname'
+                  placeholder='ชื่อ'
+                  formik={formik}
+                  isRequired
+                />
+              </Box>
+              <Box width={1 / 2} p={2}>
+                <Input
+                  name='lastname'
+                  placeholder='นามสกุล'
+                  formik={formik}
+                  isRequired
+                />
+              </Box>
+            </Flex>
+            <Flex>
+              <Box width={1 / 3} p={2}>
+                <Input
+                  name='nickname'
+                  placeholder='ชื่อเล่น'
+                  formik={formik}
+                  isRequired
+                />
+              </Box>
+              <Box width={1 / 3} p={2}>
+                <Select
+                  name='gender'
+                  placeholder='เพศ'
+                  options={genders}
+                  formik={formik}
+                  isRequired
+                />
+              </Box>
+            </Flex>
           </Box>
-          <Box width={1 / 2} p={2}>
-            <Input
-              name='lastname'
-              placeholder='นามสกุล'
-              formik={formik}
-              isRequired
-            />
+          <Box py={4}>
+            <Flex>
+              <Box width={1 / 2} p={2}>
+                <Select
+                  name='grade'
+                  placeholder='ระดับชั้น'
+                  options={grades}
+                  formik={formik}
+                  isRequired
+                />
+              </Box>
+              <Box width={1 / 2} p={2}>
+                <Input
+                  name='school'
+                  placeholder='โรงเรียน'
+                  formik={formik}
+                  isRequired
+                />
+              </Box>
+            </Flex>
+            <Flex>
+              <Box width={1 / 2} p={2}>
+                <Select
+                  name='religion'
+                  placeholder='ศาสนา'
+                  options={religions}
+                  formik={formik}
+                  isRequired
+                />
+              </Box>
+              <Box width={1 / 2} p={2}>
+                <Input
+                  name='phone'
+                  placeholder='เบอร์โทรศัพท์'
+                  formik={formik}
+                  isRequired
+                />
+              </Box>
+            </Flex>
+            <Flex>
+              <Box width={1 / 2} p={2}>
+                <Input
+                  name='email'
+                  placeholder='อีเมล'
+                  formik={formik}
+                  isRequired
+                />
+              </Box>
+              <Box width={1 / 2} p={2}>
+                <Input
+                  name='socialMedia'
+                  placeholder='Social Media'
+                  formik={formik}
+                  isRequired
+                />
+              </Box>
+            </Flex>
           </Box>
-        </Flex>
-        <Flex>
-          <Box width={1 / 3} p={2}>
-            <Input
-              name='nickname'
-              placeholder='ชื่อเล่น'
-              formik={formik}
-              isRequired
-            />
+          <Box py={4}>
+            <Flex>
+              <Box width={1 / 2} p={2}>
+                <Select
+                  name='shirtSize'
+                  placeholder='ไซส์เสื้อ'
+                  options={shirtSizes}
+                  formik={formik}
+                  isRequired
+                />
+              </Box>
+              <Box width={1 / 2} p={2}>
+                <Select
+                  name='bloodGroup'
+                  placeholder='กรุ๊ปเลือด'
+                  options={bloodGroups}
+                  formik={formik}
+                  isRequired
+                />
+              </Box>
+            </Flex>
+            <Box p={2}>
+              <Textarea
+                name='address'
+                placeholder='ที่อยู่'
+                formik={formik}
+                isRequired
+              />
+            </Box>
           </Box>
-          <Box width={1 / 3} p={2}>
-            <Select
-              name='gender'
-              placeholder='เพศ'
-              options={genders}
-              formik={formik}
-              isRequired
-            />
+          <Box py={4}>
+            <Flex>
+              <Box width={1 / 3} p={2}>
+                <Input
+                  name='disease'
+                  placeholder='โรคประจำตัว'
+                  formik={formik}
+                />
+              </Box>
+              <Box width={1 / 3} p={2}>
+                <Input
+                  name='foodAllergy'
+                  placeholder='อาหารที่แพ้'
+                  formik={formik}
+                />
+              </Box>
+              <Box width={1 / 3} p={2}>
+                <Input
+                  name='drugAllergy'
+                  placeholder='ยาที่แพ้'
+                  formik={formik}
+                />
+              </Box>
+            </Flex>
           </Box>
-        </Flex>
+          <Box py={4}>
+            <Box p={2}>
+              <Textarea
+                name='activity'
+                placeholder='กิจกรรมหรือผลงานที่น้องๆ เคยทำหรือเข้าร่วม'
+                formik={formik}
+                isRequired
+              />
+            </Box>
+            <Box p={2}>
+              <Textarea
+                name='expectation'
+                placeholder='คาดหวังอะไรจากค่ายนี้บ้าง'
+                formik={formik}
+                isRequired
+              />
+            </Box>
+          </Box>
+          <Stack spacing={4} isInline justifyContent='center'>
+            <Button
+              mt={4}
+              isLoading={formik.isSubmitting}
+              type='submit'
+              leftIcon='chevron-left'>
+              ขั้นตอนก่อนหน้า
+            </Button>
+            <Button
+              mt={4}
+              variantColor='blue'
+              isLoading={formik.isSubmitting}
+              type='submit'
+              rightIcon='chevron-right'>
+              ขั้นตอนถัดไป
+            </Button>
+          </Stack>
+        </form>
       </Box>
-      <Box py={4}>
-        <Flex>
-          <Box width={1 / 2} p={2}>
-            <Select
-              name='grade'
-              placeholder='ระดับชั้น'
-              options={grades}
-              formik={formik}
-              isRequired
-            />
-          </Box>
-          <Box width={1 / 2} p={2}>
-            <Input
-              name='school'
-              placeholder='โรงเรียน'
-              formik={formik}
-              isRequired
-            />
-          </Box>
-        </Flex>
-        <Flex>
-          <Box width={1 / 2} p={2}>
-            <Select
-              name='religion'
-              placeholder='ศาสนา'
-              options={religions}
-              formik={formik}
-              isRequired
-            />
-          </Box>
-          <Box width={1 / 2} p={2}>
-            <Input
-              name='phone'
-              placeholder='เบอร์โทรศัพท์'
-              formik={formik}
-              isRequired
-            />
-          </Box>
-        </Flex>
-        <Flex>
-          <Box width={1 / 2} p={2}>
-            <Input
-              name='email'
-              placeholder='อีเมล'
-              formik={formik}
-              isRequired
-            />
-          </Box>
-          <Box width={1 / 2} p={2}>
-            <Input
-              name='socialMedia'
-              placeholder='Social Media'
-              formik={formik}
-              isRequired
-            />
-          </Box>
-        </Flex>
-      </Box>
-      <Box py={4}>
-        <Flex>
-          <Box width={1 / 2} p={2}>
-            <Select
-              name='shirtSize'
-              placeholder='ไซส์เสื้อ'
-              options={shirtSizes}
-              formik={formik}
-              isRequired
-            />
-          </Box>
-          <Box width={1 / 2} p={2}>
-            <Select
-              name='bloodGroup'
-              placeholder='กรุ๊ปเลือด'
-              options={bloodGroups}
-              formik={formik}
-              isRequired
-            />
-          </Box>
-        </Flex>
-        <Box p={2}>
-          <Textarea
-            name='address'
-            placeholder='ที่อยู่'
-            formik={formik}
-            isRequired
-          />
-        </Box>
-      </Box>
-      <Box py={4}>
-        <Flex>
-          <Box width={1 / 3} p={2}>
-            <Input name='disease' placeholder='โรคประจำตัว' formik={formik} />
-          </Box>
-          <Box width={1 / 3} p={2}>
-            <Input
-              name='foodAllergy'
-              placeholder='อาหารที่แพ้'
-              formik={formik}
-            />
-          </Box>
-          <Box width={1 / 3} p={2}>
-            <Input name='drugAllergy' placeholder='ยาที่แพ้' formik={formik} />
-          </Box>
-        </Flex>
-      </Box>
-      <Box py={4}>
-        <Box p={2}>
-          <Textarea
-            name='activity'
-            placeholder='กิจกรรมหรือผลงานที่น้องๆ เคยทำหรือเข้าร่วม'
-            formik={formik}
-            isRequired
-          />
-        </Box>
-        <Box p={2}>
-          <Textarea
-            name='expectation'
-            placeholder='คาดหวังอะไรจากค่ายนี้บ้าง'
-            formik={formik}
-            isRequired
-          />
-        </Box>
-      </Box>
-      <Stack spacing={4} isInline justifyContent='center'>
-        <Button
-          mt={4}
-          isLoading={formik.isSubmitting}
-          type='submit'
-          leftIcon='chevron-left'>
-          ขั้นตอนก่อนหน้า
-        </Button>
-        <Button
-          mt={4}
-          variantColor='blue'
-          isLoading={formik.isSubmitting}
-          type='submit'
-          rightIcon='chevron-right'>
-          ขั้นตอนถัดไป
-        </Button>
-      </Stack>
-    </form>
+    </React.Fragment>
   )
 }
 
