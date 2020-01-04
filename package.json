@@ -1,0 +1,41 @@
+{
+  "name": "ycc-regis",
+  "version": "1.0.0",
+  "description": "Registration page for YCC",
+  "main": "index.js",
+  "repository": "https://github.com/rayriffy/ycc-regis",
+  "author": "Phumrapee Limpianchop <contact@rayriffy.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "deploy": "yarn build && yarn export",
+    "dev": "next",
+    "build": "next build",
+    "export": "next export",
+    "start": "next build && next start",
+    "test:types": "tsc",
+    "test:lint": "tslint 'src/**/*.{ts,tsx}'"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.5.2",
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
+    "babel-plugin-emotion": "^10.0.27",
+    "emotion-theming": "^10.0.27",
+    "firebase": "^7.6.1",
+    "next": "^9.1.7",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-helmet": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/react-helmet": "^5.0.15",
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-plugin-prettier": "^2.1.0",
+    "tslint-react": "^4.1.0",
+    "typescript": "^3.7.4"
+  }
+}
