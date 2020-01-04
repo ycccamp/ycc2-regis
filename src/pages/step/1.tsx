@@ -18,9 +18,7 @@ import { object, string } from 'yup'
 import { firebase } from '../../core/services/firebase'
 import { useAuth } from '../../core/services/useAuth'
 
-import Input from '../../core/components/form/input'
-import Select from '../../core/components/form/select'
-import Textarea from '../../core/components/form/textarea'
+import FormBuilder from '../../core/components/formbuilder'
 
 const formSchema = object().shape({
   firstname: string().required('Required'),
@@ -178,176 +176,156 @@ const Step1Page: React.FC = props => {
         </Flex>
       ) : (
         <Box as='form' onSubmit={formik.handleSubmit}>
-          <Box py={4}>
-            <Flex>
-              <Box width={1 / 2} p={2}>
-                <Input
-                  name='firstname'
-                  placeholder='ชื่อ'
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-              <Box width={1 / 2} p={2}>
-                <Input
-                  name='lastname'
-                  placeholder='นามสกุล'
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-            </Flex>
-            <Flex>
-              <Box width={1 / 3} p={2}>
-                <Input
-                  name='nickname'
-                  placeholder='ชื่อเล่น'
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-              <Box width={1 / 3} p={2}>
-                <Select
-                  name='gender'
-                  placeholder='เพศ'
-                  options={genders}
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-            </Flex>
-          </Box>
-          <Box py={4}>
-            <Flex>
-              <Box width={1 / 2} p={2}>
-                <Select
-                  name='grade'
-                  placeholder='ระดับชั้น'
-                  options={grades}
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-              <Box width={1 / 2} p={2}>
-                <Input
-                  name='school'
-                  placeholder='โรงเรียน'
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-            </Flex>
-            <Flex>
-              <Box width={1 / 2} p={2}>
-                <Select
-                  name='religion'
-                  placeholder='ศาสนา'
-                  options={religions}
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-              <Box width={1 / 2} p={2}>
-                <Input
-                  name='phone'
-                  placeholder='เบอร์โทรศัพท์'
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-            </Flex>
-            <Flex>
-              <Box width={1 / 2} p={2}>
-                <Input
-                  name='email'
-                  placeholder='อีเมล'
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-              <Box width={1 / 2} p={2}>
-                <Input
-                  name='socialMedia'
-                  placeholder='Social Media'
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-            </Flex>
-          </Box>
-          <Box py={4}>
-            <Flex>
-              <Box width={1 / 2} p={2}>
-                <Select
-                  name='shirtSize'
-                  placeholder='ไซส์เสื้อ'
-                  options={shirtSizes}
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-              <Box width={1 / 2} p={2}>
-                <Select
-                  name='bloodGroup'
-                  placeholder='กรุ๊ปเลือด'
-                  options={bloodGroups}
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-            </Flex>
-            <Box p={2}>
-              <Textarea
-                name='address'
-                placeholder='ที่อยู่'
-                formik={formik}
-                isRequired
-              />
-            </Box>
-          </Box>
-          <Box py={4}>
-            <Flex>
-              <Box width={1 / 3} p={2}>
-                <Input
-                  name='disease'
-                  placeholder='โรคประจำตัว'
-                  formik={formik}
-                />
-              </Box>
-              <Box width={1 / 3} p={2}>
-                <Input
-                  name='foodAllergy'
-                  placeholder='อาหารที่แพ้'
-                  formik={formik}
-                />
-              </Box>
-              <Box width={1 / 3} p={2}>
-                <Input
-                  name='drugAllergy'
-                  placeholder='ยาที่แพ้'
-                  formik={formik}
-                />
-              </Box>
-            </Flex>
-          </Box>
-          <Box py={4}>
-            <Box p={2}>
-              <Textarea
-                name='activity'
-                placeholder='กิจกรรมหรือผลงานที่น้องๆ เคยทำหรือเข้าร่วม'
-                formik={formik}
-                isRequired
-              />
-            </Box>
-            <Box p={2}>
-              <Textarea
-                name='expectation'
-                placeholder='คาดหวังอะไรจากค่ายนี้บ้าง'
-                formik={formik}
-                isRequired
-              />
-            </Box>
-          </Box>
+          <FormBuilder
+            formik={formik}
+            form={[
+              [
+                [
+                  {
+                    type: 'text',
+                    name: 'firstname',
+                    placeholder: 'ชื่อ',
+                    isRequired: true,
+                  },
+                  {
+                    type: 'text',
+                    name: 'lastname',
+                    placeholder: 'นามสกุล',
+                    isRequired: true,
+                  },
+                ],
+                [
+                  {
+                    type: 'text',
+                    name: 'nickname',
+                    placeholder: 'ชื่อเล่น',
+                    isRequired: true,
+                  },
+                  {
+                    type: 'select',
+                    name: 'gender',
+                    placeholder: 'เพศ',
+                    options: genders,
+                    isRequired: true,
+                  },
+                ],
+              ],
+              [
+                [
+                  {
+                    type: 'select',
+                    name: 'class',
+                    placeholder: 'ระดับชั้น',
+                    options: grades,
+                    isRequired: true,
+                  },
+                  {
+                    type: 'text',
+                    name: 'school',
+                    placeholder: 'โรงเรียน',
+                    isRequired: true,
+                  },
+                ],
+                [
+                  {
+                    type: 'select',
+                    name: 'religion',
+                    placeholder: 'ศาสนา',
+                    options: religions,
+                    isRequired: true,
+                  },
+                  {
+                    type: 'text',
+                    name: 'phone',
+                    placeholder: 'เบอร์โทรศัพท์',
+                    isRequired: true,
+                  },
+                ],
+                [
+                  {
+                    type: 'text',
+                    name: 'email',
+                    placeholder: 'อีเมล',
+                    isRequired: true,
+                  },
+                  {
+                    type: 'text',
+                    name: 'socialMedia',
+                    placeholder: 'Social Media',
+                    isRequired: true,
+                  },
+                ],
+              ],
+              [
+                [
+                  {
+                    type: 'select',
+                    name: 'shirtSize',
+                    placeholder: 'ไซส์เสื้อ',
+                    options: shirtSizes,
+                    isRequired: true,
+                  },
+                  {
+                    type: 'select',
+                    name: 'bloodGroup',
+                    placeholder: 'กรุ๊ปเลือด',
+                    options: bloodGroups,
+                    isRequired: true,
+                  },
+                ],
+                [
+                  {
+                    type: 'textarea',
+                    name: 'address',
+                    placeholder: 'ที่อยู่',
+                    isRequired: true,
+                  },
+                ],
+              ],
+              [
+                [
+                  {
+                    type: 'text',
+                    name: 'disease',
+                    placeholder: 'โรคประจำตัว',
+                    isRequired: false,
+                  },
+                ],
+                [
+                  {
+                    type: 'text',
+                    name: 'foodAllergy',
+                    placeholder: 'อาหารที่แพ้',
+                    isRequired: false,
+                  },
+                ],
+                [
+                  {
+                    type: 'text',
+                    name: 'drugAllergy',
+                    placeholder: 'ยาที่แพ้',
+                    isRequired: false,
+                  },
+                ],
+              ],
+              [
+                [
+                  {
+                    type: 'textarea',
+                    name: 'activity',
+                    placeholder: 'กิจกรรมหรือผลงานที่น้องๆ เคยทำหรือเข้าร่วม',
+                    isRequired: true,
+                  },
+                  {
+                    type: 'textarea',
+                    name: 'expectation',
+                    placeholder: 'คาดหวังอะไรจากค่ายนี้บ้าง',
+                    isRequired: true,
+                  },
+                ],
+              ],
+            ]}
+          />
           <Stack spacing={4} isInline justifyContent='center'>
             <Button mt={4} isDisabled={true} leftIcon='chevron-left'>
               ขั้นตอนก่อนหน้า

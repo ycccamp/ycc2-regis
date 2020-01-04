@@ -19,7 +19,7 @@ import { object, string } from 'yup'
 import { firebase } from '../../core/services/firebase'
 import { useAuth } from '../../core/services/useAuth'
 
-import Input from '../../core/components/form/input'
+import FormBuilder from '../../core/components/formbuilder'
 
 const formSchema = object().shape({
   parentFirstName: string().required('Required'),
@@ -103,46 +103,41 @@ const Step1Page: React.FC = props => {
         </Flex>
       ) : (
         <Box as='form' onSubmit={formik.handleSubmit}>
-          <Box py={4}>
-            <Flex>
-              <Box width={1 / 2} p={2}>
-                <Input
-                  name='parentFirstName'
-                  placeholder='ชื่อผู้ปกครอง'
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-              <Box width={1 / 2} p={2}>
-                <Input
-                  name='parentLastName'
-                  placeholder='นามสกุล'
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-            </Flex>
-          </Box>
-          <Box py={4}>
-            <Flex>
-              <Box width={1 / 2} p={2}>
-                <Input
-                  name='parentRelation'
-                  placeholder='ความเกี่ยวข้อง'
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-              <Box width={1 / 2} p={2}>
-                <Input
-                  name='parentPhone'
-                  placeholder='เบอร์โทรศัพท์'
-                  formik={formik}
-                  isRequired
-                />
-              </Box>
-            </Flex>
-          </Box>
+          <FormBuilder
+            formik={formik}
+            form={[
+              [
+                [
+                  {
+                    type: 'text',
+                    name: 'parentFirstName',
+                    placeholder: 'ชื่อผู้ปกครอง',
+                    isRequired: true,
+                  },
+                  {
+                    type: 'text',
+                    name: 'parentLastName',
+                    placeholder: 'นามสกุล',
+                    isRequired: true,
+                  },
+                ],
+                [
+                  {
+                    type: 'text',
+                    name: 'parentRelation',
+                    placeholder: 'ความเกี่ยวข้อง',
+                    isRequired: true,
+                  },
+                  {
+                    type: 'text',
+                    name: 'parentPhone',
+                    placeholder: 'เบอร์โทรศัพท์',
+                    isRequired: true,
+                  },
+                ],
+              ],
+            ]}
+          />
           <Stack spacing={4} isInline justifyContent='center'>
             <Box>
               <Link href='/step/1'>
