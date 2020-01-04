@@ -15,6 +15,7 @@ import {
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
 
+import 'firebase/firestore'
 import { firebase } from '../../core/services/firebase'
 import { useAuth } from '../../core/services/useAuth'
 

@@ -5,6 +5,7 @@ import Router from 'next/router'
 import { Flex, Spinner } from '@chakra-ui/core'
 
 import { User } from 'firebase/app'
+import 'firebase/firestore'
 import { firebase } from '../core/services/firebase'
 import { useAuth } from '../core/services/useAuth'
 

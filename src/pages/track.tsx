@@ -4,6 +4,7 @@ import Router from 'next/router'
 
 import { Button, Flex, Heading, useToast } from '@chakra-ui/core'
 
+import 'firebase/firestore'
 import { firebase } from '../core/services/firebase'
 import { useAuth } from '../core/services/useAuth'
 
