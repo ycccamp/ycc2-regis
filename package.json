@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "build:analyze": "ANALYZE=true yarn build",
     "export": "next export",
     "firebase": "firebase",
     "start": "next build && next start",
@@ -20,6 +21,7 @@
     "@chakra-ui/core": "^0.5.2",
     "@emotion/core": "^10.0.27",
     "@emotion/styled": "^10.0.27",
+    "@next/bundle-analyzer": "^9.1.7",
     "babel-plugin-emotion": "^10.0.27",
     "emotion-theming": "^10.0.27",
     "firebase": "^7.6.1",
