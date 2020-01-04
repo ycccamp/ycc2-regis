@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "out"
+    "public": "out",
+    "cleanUrls": true
   },
   "firestore": {
     "rules": "firestore.rules",
