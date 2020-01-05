@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import Link from 'next/link'
+import Router from 'next/router'
 
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Box,
   Button,
   Flex,
   Heading,
   Spinner,
   Stack,
-  Text,
+  useDisclosure,
 } from '@chakra-ui/core'
 
 import { User } from 'firebase/app'
@@ -26,9 +34,14 @@ import { IForm } from '../@types/IForm'
 const VerifyFeature: React.FC = props => {
   const user = useAuth()
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = useRef(null)
+  const cancelRef = useRef(null)
+
   const [form, setForm] = useState<null | IForm>(null)
 
-  const [isBackButtonLoad, setIsBackButtonLoad] = useState(false)
+  const [isBackButtonLoad, setIsBackButtonLoad] = useState<boolean>(false)
+  const [isConfirmButtonLoad, setIsConfirmButtonLoad] = useState<boolean>(false)
 
   const initHandler = async (user: User) => {
     const instance = firebase()
@@ -65,6 +78,29 @@ const VerifyFeature: React.FC = props => {
     })
   }
 
+  const lockHandler = async () => {
+    setIsConfirmButtonLoad(true)
+
+    if (user !== null) {
+      const instance = firebase()
+
+      try {
+        await instance
+          .firestore()
+          .collection('users')
+          .doc(user.uid)
+          .update({
+            isLocked: true,
+          })
+
+        Router.push('/thanks')
+      } catch {
+        setIsConfirmButtonLoad(false)
+        onClose()
+      }
+    }
+  }
+
   useEffect(() => {
     if (user !== null) {
       initHandler(user)
@@ -97,6 +133,7 @@ const VerifyFeature: React.FC = props => {
               mt={4}
               leftIcon='chevron-left'
               onClick={() => setIsBackButtonLoad(true)}
+              isDisabled={isConfirmButtonLoad}
               isLoading={isBackButtonLoad}>
               ย้อนกลับ
             </Button>
@@ -106,10 +143,42 @@ const VerifyFeature: React.FC = props => {
           mt={4}
           variantColor='green'
           type='submit'
-          isDisabled={isBackButtonLoad}>
+          ref={btnRef}
+          onClick={onOpen}
+          isDisabled={isBackButtonLoad || isConfirmButtonLoad}>
           ยืนยันการลงทะเบียน
         </Button>
       </Stack>
+      <AlertDialog
+        leastDestructiveRef={cancelRef}
+        finalFocusRef={btnRef}
+        onClose={onClose}
+        isOpen={isOpen}>
+        <AlertDialogOverlay />
+        <AlertDialogContent>
+          <AlertDialogHeader>ยืนยันการลงทะเบียน</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>
+            ยืนยันการสมัครเข้าค่าย Young Creator's Camp หรือไม่?
+            หลังจากขั้นตอนนี้สำเร็จแล้วจะไม่สามารถแก้ไขข้อมูลได้อีก
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Button
+              ref={cancelRef}
+              onClick={onClose}
+              isDisabled={isConfirmButtonLoad}>
+              ยกเลิก
+            </Button>
+            <Button
+              isLoading={isConfirmButtonLoad}
+              onClick={lockHandler}
+              variantColor='blue'
+              ml={3}>
+              ยืนยัน
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </React.Fragment>
   )
 }

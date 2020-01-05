@@ -33,7 +33,7 @@ const IndexPage: NextPage = props => {
 
     if (userData) {
       if (userData.isLocked) {
-        return Router.push('/finish/')
+        return Router.push('/thanks/')
       }
     }
 
