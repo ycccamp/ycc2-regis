@@ -13,12 +13,12 @@ const TrackField: React.FC<ITrackFieldProps> = props => {
     <Box py={4}>
       <Heading size='md'>คำถามกลาง</Heading>
       <Box py={4}>
-        {Object.keys(data).map(key => (
+        {Object.keys(data).map((key, i) => (
           <Flex flexWrap='wrap' key={`general-field-${key}`}>
             <Text p={2}>
               <b>{tracks[track].questions[key]}</b>
               <br />
-              {data[key]}
+              {i + 1}. {data[key]}
             </Text>
           </Flex>
         ))}
