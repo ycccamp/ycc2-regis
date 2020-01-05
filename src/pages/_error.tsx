@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 
+import { NextPage } from 'next'
+
 import { Box, Button, Flex, Heading, Link, Text } from '@chakra-ui/core'
 
-const ErrorPage: React.FC = props => {
+const ErrorPage: NextPage = props => {
   const [isLoad, setIsLoad] = useState<boolean>(false)
 
   return (

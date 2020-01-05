@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
+import Router from 'next/router'
+
 import { Button, Flex, Spinner, Text } from '@chakra-ui/core'
 
 import { auth } from 'firebase/app'
@@ -42,6 +44,10 @@ const AuthComponent: React.FC<IAuthProps> = props => {
       setStage(2)
     }
   }, [user])
+
+  useEffect(() => {
+    Router.push('/')
+  }, [])
 
   return (
     <React.Fragment>
