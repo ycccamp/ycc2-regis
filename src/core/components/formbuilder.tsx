@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Box, Flex } from '@chakra-ui/core'
 
+import Date from './form/date'
 import Input from './form/input'
 import Select from './form/select'
 import Textarea from './form/textarea'
@@ -43,6 +44,14 @@ const FormBuilder: React.FC<IFormBuilderProps> = props => {
                       name={item.name}
                       placeholder={item.placeholder}
                       options={item.options}
+                      formik={formik}
+                      isRequired={item.isRequired}
+                      {...item.props}
+                    />
+                  ) : item.type === 'date' ? (
+                    <Date
+                      name={item.name}
+                      placeholder={item.placeholder}
                       formik={formik}
                       isRequired={item.isRequired}
                       {...item.props}

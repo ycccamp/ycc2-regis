@@ -38,6 +38,7 @@ const Step1Feature: React.FC = props => {
     lastname: '',
     gender: '',
     nickname: '',
+    birthdate: '',
     grade: '',
     school: '',
     religion: '',
@@ -139,6 +140,12 @@ const Step1Feature: React.FC = props => {
                     type: 'text',
                     name: 'nickname',
                     placeholder: 'ชื่อเล่น',
+                    isRequired: true,
+                  },
+                  {
+                    type: 'date',
+                    name: 'birthdate',
+                    placeholder: 'วันเกิด',
                     isRequired: true,
                   },
                   {

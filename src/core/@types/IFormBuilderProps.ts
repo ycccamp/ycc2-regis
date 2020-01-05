@@ -1,7 +1,7 @@
 export interface IFormBuilderProps {
   form: (
     | {
-        type: 'text' | 'textarea'
+        type: 'text' | 'textarea' | 'date'
         name: string
         placeholder: string
         isRequired: boolean
