@@ -16,9 +16,11 @@ const TrackField: React.FC<ITrackFieldProps> = props => {
         {Object.keys(data).map((key, i) => (
           <Flex flexWrap='wrap' key={`general-field-${key}`}>
             <Text p={2}>
-              <b>{tracks[track].questions[key]}</b>
+              <b>
+                {i + 1}. {tracks[track].questions[key]}
+              </b>
               <br />
-              {i + 1}. {data[key]}
+              {data[key]}
             </Text>
           </Flex>
         ))}

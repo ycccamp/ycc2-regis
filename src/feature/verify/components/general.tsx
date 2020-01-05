@@ -16,9 +16,11 @@ const GeneralField: React.FC<IGeneralFieldProps> = props => {
         {Object.keys(data).map((key, i) => (
           <Flex flexWrap='wrap' key={`general-field-${key}`}>
             <Text p={2}>
-              <b>{generalQuestion[key]}</b>
+              <b>
+                {i + 1}. {generalQuestion[key]}
+              </b>
               <br />
-              {i + 1}. {data[key]}
+              {data[key]}
             </Text>
           </Flex>
         ))}
