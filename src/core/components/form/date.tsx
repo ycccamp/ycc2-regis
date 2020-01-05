@@ -22,7 +22,6 @@ const FormDate: React.FC<IFormDateProps> = props => {
       <Input
         id={name}
         type='date'
-        color='gray.400'
         onChange={formik.handleChange}
         value={formik.values[name]}
       />

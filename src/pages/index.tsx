@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { NextPage } from 'next'
 import Router from 'next/router'
 
-import { Flex, Spinner } from '@chakra-ui/core'
+import { Flex, Spinner, Text } from '@chakra-ui/core'
 
 import { User } from 'firebase/app'
 import 'firebase/firestore'
@@ -87,6 +87,8 @@ const IndexPage: NextPage = props => {
 
     if (!trackForm.exists) {
       return Router.push('/step/4/')
+    } else {
+      return Router.push('/verify/')
     }
   }
 
@@ -97,8 +99,11 @@ const IndexPage: NextPage = props => {
   }, [user])
 
   return (
-    <Flex justifyContent='center'>
-      <Spinner size='xl' />
+    <Flex justifyContent='center' flexWrap='wrap'>
+      <Spinner size='lg' />
+      <Text width='100%' textAlign='center' pt={4}>
+        กำลังโหลดข้อมูลล่าสุดที่มี
+      </Text>
     </Flex>
   )
 }

@@ -53,7 +53,7 @@ const AuthComponent: React.FC<IAuthProps> = props => {
     <React.Fragment>
       {stage === 0 ? (
         <Flex flexWrap='wrap' justifyContent='center' py={10}>
-          <Spinner />
+          <Spinner size='lg' />
           <Text width='100%' textAlign='center' pt={4}>
             กำลังยืนยันตัวเพื่อเข้าสู่ระบบ...
           </Text>

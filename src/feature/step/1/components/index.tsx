@@ -26,7 +26,7 @@ import {
   grades,
   religions,
   shirtSizes,
-} from '../constants'
+} from '../../../../core/constants'
 
 const Step1Feature: React.FC = props => {
   const user = useAuth()
@@ -39,7 +39,7 @@ const Step1Feature: React.FC = props => {
     gender: '',
     nickname: '',
     birthdate: '',
-    grade: '',
+    class: '',
     school: '',
     religion: '',
     phone: '',
