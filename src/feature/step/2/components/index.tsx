@@ -3,15 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
 
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Spinner,
-  Stack,
-  useToast,
-} from '@chakra-ui/core'
+import { Box, Button, Flex, Heading, Spinner, useToast } from '@chakra-ui/core'
 
 import { useFormik } from 'formik'
 
@@ -131,8 +123,8 @@ const Step2Feature: React.FC = props => {
               ],
             ]}
           />
-          <Stack spacing={4} isInline justifyContent='center'>
-            <Box>
+          <Flex justifyContent='center' flexWrap='wrap'>
+            <Box px={2}>
               <Link href='/step/1'>
                 <Button
                   mt={4}
@@ -144,16 +136,18 @@ const Step2Feature: React.FC = props => {
                 </Button>
               </Link>
             </Box>
-            <Button
-              mt={4}
-              variantColor='blue'
-              isLoading={formik.isSubmitting}
-              isDisabled={isBackButtonLoad}
-              type='submit'
-              rightIcon='chevron-right'>
-              ขั้นตอนถัดไป
-            </Button>
-          </Stack>
+            <Box px={2}>
+              <Button
+                mt={4}
+                variantColor='blue'
+                isLoading={formik.isSubmitting}
+                isDisabled={isBackButtonLoad}
+                type='submit'
+                rightIcon='chevron-right'>
+                ขั้นตอนถัดไป
+              </Button>
+            </Box>
+          </Flex>
         </Box>
       )}
     </React.Fragment>

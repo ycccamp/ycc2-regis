@@ -2,15 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import Router from 'next/router'
 
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Spinner,
-  Stack,
-  useToast,
-} from '@chakra-ui/core'
+import { Box, Button, Flex, Heading, Spinner, useToast } from '@chakra-ui/core'
 
 import { useFormik } from 'formik'
 
@@ -273,19 +265,23 @@ const Step1Feature: React.FC = props => {
               ],
             ]}
           />
-          <Stack spacing={4} isInline justifyContent='center'>
-            <Button mt={4} isDisabled={true} leftIcon='chevron-left'>
-              ขั้นตอนก่อนหน้า
-            </Button>
-            <Button
-              mt={4}
-              variantColor='blue'
-              isLoading={formik.isSubmitting}
-              type='submit'
-              rightIcon='chevron-right'>
-              ขั้นตอนถัดไป
-            </Button>
-          </Stack>
+          <Flex justifyContent='center' flexWrap='wrap'>
+            <Box px={2}>
+              <Button mt={4} isDisabled={true} leftIcon='chevron-left'>
+                ขั้นตอนก่อนหน้า
+              </Button>
+            </Box>
+            <Box px={2}>
+              <Button
+                mt={4}
+                variantColor='blue'
+                isLoading={formik.isSubmitting}
+                type='submit'
+                rightIcon='chevron-right'>
+                ขั้นตอนถัดไป
+              </Button>
+            </Box>
+          </Flex>
         </Box>
       )}
     </React.Fragment>

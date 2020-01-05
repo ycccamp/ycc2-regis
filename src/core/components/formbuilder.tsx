@@ -17,11 +17,16 @@ const FormBuilder: React.FC<IFormBuilderProps> = props => {
       {form.map((section, i) => (
         <Box key={`from-section${i}`} py={4}>
           {section.map((row, j) => (
-            <Flex key={`form-section${i}-row${j}`}>
+            <Flex key={`form-section${i}-row${j}`} flexWrap='wrap'>
               {row.map((item, k) => (
                 <Box
                   key={`form-section${i}-row${j}-column${k}`}
-                  width={row.length === 1 ? '100%' : 1 / row.length}
+                  width={[
+                    '100%',
+                    '100%',
+                    row.length === 1 ? '100%' : 1 / row.length,
+                    row.length === 1 ? '100%' : 1 / row.length,
+                  ]}
                   p={2}>
                   {item.type === 'text' ? (
                     <Input

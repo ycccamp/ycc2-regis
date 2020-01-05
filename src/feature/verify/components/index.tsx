@@ -16,7 +16,6 @@ import {
   Flex,
   Heading,
   Spinner,
-  Stack,
   useDisclosure,
 } from '@chakra-ui/core'
 
@@ -126,8 +125,8 @@ const VerifyFeature: React.FC = props => {
           ) : null}
         </Box>
       )}
-      <Stack spacing={4} isInline justifyContent='center'>
-        <Box>
+      <Flex justifyContent='center' flexWrap='wrap'>
+        <Box px={2}>
           <Link href='/step/4/'>
             <Button
               mt={4}
@@ -139,16 +138,18 @@ const VerifyFeature: React.FC = props => {
             </Button>
           </Link>
         </Box>
-        <Button
-          mt={4}
-          variantColor='green'
-          type='submit'
-          ref={btnRef}
-          onClick={onOpen}
-          isDisabled={isBackButtonLoad || isConfirmButtonLoad}>
-          ยืนยันการลงทะเบียน
-        </Button>
-      </Stack>
+        <Box px={2}>
+          <Button
+            mt={4}
+            variantColor='green'
+            type='submit'
+            ref={btnRef}
+            onClick={onOpen}
+            isDisabled={isBackButtonLoad || isConfirmButtonLoad}>
+            ยืนยันการลงทะเบียน
+          </Button>
+        </Box>
+      </Flex>
       <AlertDialog
         leastDestructiveRef={cancelRef}
         finalFocusRef={btnRef}
