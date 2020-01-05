@@ -4,7 +4,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Textarea,
+  Input,
 } from '@chakra-ui/core'
 
 import { IFormTextareaProps } from '../../@types/IFormTextareaProps'
@@ -19,8 +19,10 @@ const FormTextarea: React.FC<IFormTextareaProps> = props => {
       }
       isRequired={isRequired}>
       <FormLabel htmlFor={name}>{placeholder}</FormLabel>
-      <Textarea
+      <Input
         id={name}
+        as='textarea'
+        height={100}
         onChange={formik.handleChange}
         value={formik.values[name]}
       />
