@@ -14,14 +14,14 @@ interface IConfig {
 export const firebase = () => {
   if (!firebaseApp.apps.length) {
     const config: IConfig = {
-      apiKey: 'AIzaSyBufAwRC9-ud1CIZQyvC3HwrKUUxTlbWcg',
-      authDomain: 'ycc-regis.firebaseapp.com',
-      databaseURL: 'https://ycc-regis.firebaseio.com',
-      projectId: 'ycc-regis',
-      storageBucket: 'ycc-regis.appspot.com',
-      messagingSenderId: '85944610989',
-      appId: '1:85944610989:web:772a02b274fc205768d624',
-      measurementId: 'G-8S4V1REH7S',
+      apiKey: 'AIzaSyBoT3SIWbgGNf7QEqMIL8p3mHUWe7y-HuI',
+      authDomain: 'ycc2020.firebaseapp.com',
+      databaseURL: 'https://ycc2020.firebaseio.com',
+      projectId: 'ycc2020',
+      storageBucket: 'ycc2020.appspot.com',
+      messagingSenderId: '959291668430',
+      appId: '1:959291668430:web:213f0abec4a89e5f879d9f',
+      measurementId: 'G-C5LLV6B34N',
     }
 
     return firebaseApp.initializeApp(config)
