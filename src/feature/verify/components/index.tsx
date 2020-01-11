@@ -47,7 +47,7 @@ const VerifyFeature: React.FC = props => {
     // TODO: Get forms data
     const userRef = instance
       .firestore()
-      .collection('users')
+      .collection('registration')
       .doc(user.uid)
 
     const basicData = await userRef.get()
@@ -86,7 +86,7 @@ const VerifyFeature: React.FC = props => {
       try {
         await instance
           .firestore()
-          .collection('users')
+          .collection('registration')
           .doc(user.uid)
           .update({
             isLocked: true,

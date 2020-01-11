@@ -57,7 +57,7 @@ const Step1Feature: React.FC = props => {
         if (user !== null) {
           await instance
             .firestore()
-            .collection('users')
+            .collection('registration')
             .doc(user.uid)
             .collection('forms')
             .doc('personal')
@@ -83,7 +83,7 @@ const Step1Feature: React.FC = props => {
 
       instance
         .firestore()
-        .collection('users')
+        .collection('registration')
         .doc(user.uid)
         .collection('forms')
         .doc('personal')

@@ -19,7 +19,7 @@ const IndexPage: NextPage = props => {
     // Step 1: Get user snapshot
     const userDoc = await instance
       .firestore()
-      .collection('users')
+      .collection('registration')
       .doc(user.uid)
       .get()
 
@@ -40,7 +40,7 @@ const IndexPage: NextPage = props => {
     // Step 3: Check is form step 1 is submitted
     const personalForm = await instance
       .firestore()
-      .collection('users')
+      .collection('registration')
       .doc(user.uid)
       .collection('forms')
       .doc('personal')
@@ -53,7 +53,7 @@ const IndexPage: NextPage = props => {
     // Step 4: Check is form step 2 is submitted
     const parentForm = await instance
       .firestore()
-      .collection('users')
+      .collection('registration')
       .doc(user.uid)
       .collection('forms')
       .doc('parent')
@@ -66,7 +66,7 @@ const IndexPage: NextPage = props => {
     // Step 5: Check is form step 3 is submitted
     const generalForm = await instance
       .firestore()
-      .collection('users')
+      .collection('registration')
       .doc(user.uid)
       .collection('forms')
       .doc('general')
@@ -79,7 +79,7 @@ const IndexPage: NextPage = props => {
     // Step 6: Check is form step 4 is submitted
     const trackForm = await instance
       .firestore()
-      .collection('users')
+      .collection('registration')
       .doc(user.uid)
       .collection('forms')
       .doc('track')

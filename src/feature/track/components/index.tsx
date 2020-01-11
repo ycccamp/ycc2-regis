@@ -23,7 +23,7 @@ const TrackFeature: React.FC = props => {
 
       instance
         .firestore()
-        .collection('users')
+        .collection('registration')
         .doc(user.uid)
         .set({
           track,

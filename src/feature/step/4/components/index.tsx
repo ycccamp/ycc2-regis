@@ -57,7 +57,7 @@ const Step4Feature: React.FC = props => {
         if (user !== null) {
           await instance
             .firestore()
-            .collection('users')
+            .collection('registration')
             .doc(user.uid)
             .collection('forms')
             .doc('track')
@@ -84,7 +84,7 @@ const Step4Feature: React.FC = props => {
       // Get user track
       instance
         .firestore()
-        .collection('users')
+        .collection('registration')
         .doc(user.uid)
         .get()
         .then(doc => {
@@ -99,7 +99,7 @@ const Step4Feature: React.FC = props => {
             // Load saved answers
             instance
               .firestore()
-              .collection('users')
+              .collection('registration')
               .doc(user.uid)
               .collection('forms')
               .doc('track')
@@ -131,7 +131,7 @@ const Step4Feature: React.FC = props => {
 
       instance
         .firestore()
-        .collection('users')
+        .collection('registration')
         .doc(user.uid)
         .collection('forms')
         .doc('track')

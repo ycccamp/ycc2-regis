@@ -3,9 +3,5 @@
     "public": "out",
     "trailingSlash": true,
     "cleanUrls": true
-  },
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
   }
 }
