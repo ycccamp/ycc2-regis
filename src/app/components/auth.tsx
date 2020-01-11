@@ -21,10 +21,11 @@ const AuthComponent: React.FC<IAuthProps> = props => {
     setIsLoginButtonLoad(true)
 
     const instance = firebase()
+    const provider = new auth.FacebookAuthProvider()
 
     instance
       .auth()
-      .signInWithPopup(new auth.GoogleAuthProvider())
+      .signInWithPopup(provider)
       .catch(e => {
         if (e === 'auth/popup-closed-by-user') {
           // TODO: Handle auth error
@@ -64,7 +65,7 @@ const AuthComponent: React.FC<IAuthProps> = props => {
             กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ
           </Text>
           <Button isLoading={isLoginButtonLoad} onClick={loginHandler}>
-            เข้าสู่ระบบด้วย Google
+            เข้าสู่ระบบด้วย Facebook
           </Button>
         </Flex>
       ) : (
