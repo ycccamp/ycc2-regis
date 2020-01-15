@@ -9,14 +9,10 @@ interface IAppProps {
 }
 
 class NextApp extends App<IAppProps> {
-  public getInitialProps(context: any) {
-    const fullstory = process.env.FULLSTORY ? process.env.FULLSTORY : ''
-
-    return { fullstory }
-  }
-
   public render() {
-    const { Component, pageProps, fullstory } = this.props
+    const { Component, pageProps } = this.props
+
+    const fullstory = process.env.FULLSTORY ? process.env.FULLSTORY : ''
 
     return (
       <AppShell fullstory={fullstory}>
