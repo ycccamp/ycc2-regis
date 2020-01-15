@@ -1,4 +1,10 @@
+import { User } from 'firebase'
+
 export interface IForm {
+  user: User
+  avatar?: {
+    [key: string]: any
+  }
   basic?: {
     [key: string]: any
   }

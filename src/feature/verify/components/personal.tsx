@@ -10,14 +10,17 @@ import {
   shirtSizes,
 } from '../../../core/constants'
 
+import AvatarField from './avatar'
+
 import { IPersonalFieldProps } from '../@types/IPersonalFieldProps'
 
 const PersonalField: React.FC<IPersonalFieldProps> = props => {
-  const { data } = props
+  const { data, avatar, user } = props
 
   return (
     <Box py={4}>
       <Heading size='md'>ข้อมูลส่วนตัว</Heading>
+      <AvatarField fileName={avatar} user={user} />
       <Box py={4}>
         <Flex flexWrap='wrap'>
           <Text p={2}>

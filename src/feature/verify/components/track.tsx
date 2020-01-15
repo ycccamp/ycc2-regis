@@ -11,7 +11,7 @@ const TrackField: React.FC<ITrackFieldProps> = props => {
 
   return (
     <Box py={4}>
-      <Heading size='md'>คำถามกลาง</Heading>
+      <Heading size='md'>คำถามสาขา</Heading>
       <Box py={4}>
         {Object.keys(data).map((key, i) => (
           <Flex flexWrap='wrap' key={`general-field-${key}`}>

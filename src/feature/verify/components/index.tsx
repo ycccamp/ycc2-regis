@@ -20,6 +20,7 @@ import {
 } from '@chakra-ui/core'
 
 import { User } from 'firebase/app'
+import 'firebase/firestore'
 import { firebase } from '../../../core/services/firebase'
 import { useAuth } from '../../../core/services/useAuth'
 
@@ -67,8 +68,14 @@ const VerifyFeature: React.FC = props => {
       .collection('forms')
       .doc('track')
       .get()
+    const avatarData = await userRef
+      .collection('forms')
+      .doc('avatar')
+      .get()
 
     setForm({
+      user,
+      avatar: avatarData.data(),
       basic: basicData.data(),
       personal: personalData.data(),
       parent: parentData.data(),
@@ -117,7 +124,13 @@ const VerifyFeature: React.FC = props => {
         </Flex>
       ) : (
         <Box>
-          {form.personal ? <PersonalField data={form.personal} /> : null}
+          {form.personal && form.avatar ? (
+            <PersonalField
+              data={form.personal}
+              avatar={form.avatar.fileName}
+              user={form.user}
+            />
+          ) : null}
           {form.parent ? <ParentField data={form.parent} /> : null}
           {form.general ? <GeneralField data={form.general} /> : null}
           {form.track && form.basic ? (
