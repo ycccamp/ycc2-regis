@@ -21,7 +21,7 @@ const AuthComponent: React.FC<IAuthProps> = props => {
     setIsLoginButtonLoad(true)
 
     const instance = firebase()
-    const provider = new auth.GoogleAuthProvider()
+    const provider = new auth.FacebookAuthProvider()
 
     instance
       .auth()
@@ -65,7 +65,7 @@ const AuthComponent: React.FC<IAuthProps> = props => {
             กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ
           </Text>
           <Button isLoading={isLoginButtonLoad} onClick={loginHandler}>
-            เข้าสู่ระบบด้วย Google
+            เข้าสู่ระบบด้วย Facebook
           </Button>
         </Flex>
       ) : (
