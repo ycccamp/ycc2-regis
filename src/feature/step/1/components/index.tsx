@@ -8,7 +8,15 @@ import {
   Button,
   Flex,
   Heading,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
   Spinner,
+  Text,
   useToast,
 } from '@chakra-ui/core'
 
@@ -34,6 +42,7 @@ const Step1Feature: React.FC = props => {
   const toast = useToast()
 
   const [isFormLoad, setIsFormLoad] = useState<boolean>(true)
+  const [popover, setPopover] = useState<boolean>(false)
 
   const [avatarUrl, setAvatarUrl] = useState<string>('')
   const [isAvatarUploading, setIsAvatarUploading] = useState<boolean>(false)
@@ -135,30 +144,35 @@ const Step1Feature: React.FC = props => {
     initialValues: form,
     enableReinitialize: true,
     onSubmit: async (values, actions) => {
-      const instance = firebase()
+      if (avatarUrl !== '') {
+        const instance = firebase()
 
-      try {
-        if (user !== null) {
-          await instance
-            .firestore()
-            .collection('registration')
-            .doc(user.uid)
-            .collection('forms')
-            .doc('personal')
-            .set({
-              ...values,
-            })
+        try {
+          if (user !== null) {
+            await instance
+              .firestore()
+              .collection('registration')
+              .doc(user.uid)
+              .collection('forms')
+              .doc('personal')
+              .set({
+                ...values,
+              })
 
-          Router.push('/step/2/')
+            Router.push('/step/2/')
+          }
+        } catch {
+          toast({
+            title: 'เกิดข้อผิดพลาด',
+            description: 'ไม่สามารถบันทึกข้อมูลได้สำเร็จ กรุณาลองใหม่อีกครั้ง',
+            status: 'error',
+            duration: 4000,
+            isClosable: true,
+          })
         }
-      } catch {
-        toast({
-          title: 'เกิดข้อผิดพลาด',
-          description: 'ไม่สามารถบันทึกข้อมูลได้สำเร็จ กรุณาลองใหม่อีกครั้ง',
-          status: 'error',
-          duration: 4000,
-          isClosable: true,
-        })
+      } else {
+        setPopover(true)
+        setIsFormLoad(false)
       }
     },
   })
@@ -244,9 +258,16 @@ const Step1Feature: React.FC = props => {
               />
               <label htmlFor='avatarUpload'>
                 <Button as='span' size='sm' isDisabled={isAvatarUploading}>
-                  {isAvatarUploading
-                    ? `${Math.floor(uploadProgress)} %`
-                    : `อัพโหลดรูปประจำตัว`}
+                  {isAvatarUploading ? (
+                    `${Math.floor(uploadProgress)} %`
+                  ) : (
+                    <Flex>
+                      อัพโหลดรูปประจำตัว{' '}
+                      <Text pl={1} color='red.500'>
+                        *
+                      </Text>
+                    </Flex>
+                  )}
                 </Button>
               </label>
             </Flex>
@@ -415,14 +436,24 @@ const Step1Feature: React.FC = props => {
                 </Button>
               </Box>
               <Box px={2}>
-                <Button
-                  mt={4}
-                  variantColor='blue'
-                  isLoading={formik.isSubmitting}
-                  type='submit'
-                  rightIcon='chevron-right'>
-                  ขั้นตอนถัดไป
-                </Button>
+                <Popover isOpen={popover} onClose={() => setPopover(false)}>
+                  <PopoverTrigger>
+                    <Button
+                      mt={4}
+                      variantColor='blue'
+                      isLoading={formik.isSubmitting}
+                      type='submit'
+                      rightIcon='chevron-right'>
+                      ขั้นตอนถัดไป
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent zIndex={4} bg='tomato' color='white'>
+                    <PopoverHeader>ขั้นตอนนี้ยังไม่เสร็จ</PopoverHeader>
+                    <PopoverArrow />
+                    <PopoverCloseButton />
+                    <PopoverBody>คุณยังไม่ได้อัพโหลดรูปภาพประจำตัว</PopoverBody>
+                  </PopoverContent>
+                </Popover>
               </Box>
             </Flex>
           </Box>
