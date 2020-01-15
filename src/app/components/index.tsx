@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import {
   Box,
@@ -9,7 +9,7 @@ import {
   ThemeProvider,
 } from '@chakra-ui/core'
 
-import FullStory from 'react-fullstory'
+import FullStory, { identify } from 'react-fullstory'
 
 import { useAuth } from '../../core/services/useAuth'
 
@@ -23,6 +23,12 @@ const AppComponent: React.FC<IProps> = props => {
   const { children, fullstory } = props
 
   const auth = useAuth()
+
+  useEffect(() => {
+    if (auth !== null) {
+      identify(auth.uid)
+    }
+  }, [auth])
 
   return (
     <ThemeProvider>
