@@ -9,20 +9,25 @@ import {
   ThemeProvider,
 } from '@chakra-ui/core'
 
+import FullStory from 'react-fullstory'
+
 import { useAuth } from '../../core/services/useAuth'
 
 import Auth from './auth'
 import Global from './global'
 import Helmet from './helmet'
 
-const AppComponent: React.FC = props => {
-  const { children } = props
+import { IProps } from '../@types/IProps'
+
+const AppComponent: React.FC<IProps> = props => {
+  const { children, fullstory } = props
 
   const auth = useAuth()
 
   return (
     <ThemeProvider>
       <CSSReset />
+      <FullStory org={fullstory} />
       <Global />
       <Helmet />
       <Box as='main' height='100%' overflow='auto'>

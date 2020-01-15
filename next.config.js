@@ -3,5 +3,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 module.exports = withBundleAnalyzer({
+  env: {
+    FULLSTORY: process.env.FULLSTORY,
+  },
   exportTrailingSlash: true,
 })
