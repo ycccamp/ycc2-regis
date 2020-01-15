@@ -9,6 +9,7 @@
   "private": true,
   "scripts": {
     "dev": "next",
+    "dev:inspect": "next --inspect",
     "build": "next build",
     "build:analyze": "ANALYZE=true yarn build",
     "export": "next export",
