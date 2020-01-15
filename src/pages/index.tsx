@@ -5,6 +5,7 @@ import Router from 'next/router'
 
 import { Flex, Spinner, Text } from '@chakra-ui/core'
 
+import 'firebase/analytics'
 import { User } from 'firebase/app'
 import 'firebase/firestore'
 import { firebase } from '../core/services/firebase'
@@ -93,10 +94,19 @@ const IndexPage: NextPage = props => {
   }
 
   useEffect(() => {
+    const instance = firebase()
+
     if (user !== null) {
+      instance.analytics().logEvent('auth')
       userHandler(user)
     }
   }, [user])
+
+  useEffect(() => {
+    const instance = firebase()
+
+    instance.analytics().logEvent('init')
+  })
 
   return (
     <Flex justifyContent='center' flexWrap='wrap'>

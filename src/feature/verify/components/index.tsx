@@ -19,6 +19,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/core'
 
+import 'firebase/analytics'
 import { User } from 'firebase/app'
 import 'firebase/firestore'
 import { firebase } from '../../../core/services/firebase'
@@ -98,6 +99,10 @@ const VerifyFeature: React.FC = props => {
           .update({
             isLocked: true,
           })
+
+        instance.analytics().logEvent('lock', {
+          track: form?.basic?.track,
+        })
 
         Router.push('/thanks')
       } catch {

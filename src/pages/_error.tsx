@@ -1,11 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { NextPage } from 'next'
 
+import 'firebase/analytics'
+import { firebase } from '../core/services/firebase'
+
 import { Box, Button, Flex, Heading, Link, Text } from '@chakra-ui/core'
 
-const ErrorPage: NextPage = props => {
+interface IErrorProps {
+  statusCode: number | undefined
+}
+
+const ErrorPage: NextPage<IErrorProps> = props => {
   const [isLoad, setIsLoad] = useState<boolean>(false)
+
+  useEffect(() => {
+    const instance = firebase()
+    instance.analytics().logEvent('crash', {
+      statusCode: props.statusCode,
+    })
+  }, [])
 
   return (
     <Flex justifyContent='center' alignItems='center' height='100%'>
@@ -28,6 +42,12 @@ const ErrorPage: NextPage = props => {
       </Box>
     </Flex>
   )
+}
+
+ErrorPage.getInitialProps = ({ res, err }) => {
+  const statusCode = res ? res.statusCode : err ? err.statusCode : 404
+
+  return { statusCode }
 }
 
 export default ErrorPage

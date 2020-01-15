@@ -4,6 +4,7 @@ import Router from 'next/router'
 
 import { Button, Flex, Heading, useToast } from '@chakra-ui/core'
 
+import 'firebase/analytics'
 import 'firebase/firestore'
 import { firebase } from '../../../core/services/firebase'
 import { useAuth } from '../../../core/services/useAuth'
@@ -30,6 +31,11 @@ const TrackFeature: React.FC = props => {
           isLocked: false,
         })
         .then(async () => {
+          instance.analytics().logEvent('selectTrack', {
+            track,
+          })
+          instance.analytics().setUserProperties({ track })
+
           await Router.push('/step/1/')
         })
         .catch(() => {
@@ -59,7 +65,7 @@ const TrackFeature: React.FC = props => {
           </Heading>
           <Button
             onClick={() => trackHandler(track[0])}
-            isLoading={activeClick === 'developer'}
+            isLoading={activeClick === track[0]}
             isDisabled={activeClick !== ''}>
             สมัครเป็น {track[1].title}
           </Button>
