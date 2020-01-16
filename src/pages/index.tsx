@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { NextPage } from 'next'
 import Router from 'next/router'
 
-import { Flex, Spinner, Text } from '@chakra-ui/core'
+import { Flex, Spinner, Text, useTheme } from '@chakra-ui/core'
 
 import 'firebase/analytics'
 import { User } from 'firebase/app'
@@ -26,70 +26,38 @@ const IndexPage: NextPage = props => {
 
     // Step 2: Check is user choosen track
     if (!userDoc.exists) {
+      await instance
+        .firestore()
+        .collection('registration')
+        .doc(user.uid)
+        .set({
+          step: 0,
+        })
+
       return Router.push('/track/')
     }
 
-    // Step 3: Check is user is locked form
+    // Step 3: Check is user is locked form and step
     const userData = userDoc.data()
 
     if (userData) {
       if (userData.isLocked) {
         return Router.push('/thanks/')
       }
-    }
 
-    // Step 3: Check is form step 1 is submitted
-    const personalForm = await instance
-      .firestore()
-      .collection('registration')
-      .doc(user.uid)
-      .collection('forms')
-      .doc('personal')
-      .get()
+      // Check if user at verify step
+      if (userData.step === 5) {
+        return Router.push('/verify/')
+      }
 
-    if (!personalForm.exists) {
-      return Router.push('/step/1/')
-    }
-
-    // Step 4: Check is form step 2 is submitted
-    const parentForm = await instance
-      .firestore()
-      .collection('registration')
-      .doc(user.uid)
-      .collection('forms')
-      .doc('parent')
-      .get()
-
-    if (!parentForm.exists) {
-      return Router.push('/step/2/')
-    }
-
-    // Step 5: Check is form step 3 is submitted
-    const generalForm = await instance
-      .firestore()
-      .collection('registration')
-      .doc(user.uid)
-      .collection('forms')
-      .doc('general')
-      .get()
-
-    if (!generalForm.exists) {
-      return Router.push('/step/3/')
-    }
-
-    // Step 6: Check is form step 4 is submitted
-    const trackForm = await instance
-      .firestore()
-      .collection('registration')
-      .doc(user.uid)
-      .collection('forms')
-      .doc('track')
-      .get()
-
-    if (!trackForm.exists) {
-      return Router.push('/step/4/')
-    } else {
-      return Router.push('/verify/')
+      // Check if user not choose track
+      if (userData.step === 0) {
+        return Router.push('/track/')
+      }
+      // Check if user at some step
+      else {
+        return Router.push(`/step/${userData.step}/`)
+      }
     }
   }
 

@@ -28,6 +28,7 @@ const TrackFeature: React.FC = props => {
         .doc(user.uid)
         .set({
           track,
+          step: 1,
           isLocked: false,
         })
         .then(async () => {

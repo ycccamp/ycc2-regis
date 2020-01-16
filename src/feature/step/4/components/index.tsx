@@ -61,9 +61,27 @@ const Step4Feature: React.FC = props => {
             .doc(user.uid)
             .collection('forms')
             .doc('track')
-            .set(values)
+            .set({ ...values, step: 5 })
 
-          Router.push('/verify/')
+          const userInstance = await instance
+            .firestore()
+            .collection('registration')
+            .doc(user.uid)
+            .get()
+
+          const userData = userInstance.data()
+
+          if (userData) {
+            await instance
+              .firestore()
+              .collection('registration')
+              .doc(user.uid)
+              .update({
+                step: userData.step > 5 ? userData.step : 5,
+              })
+
+            Router.push('/verify/')
+          }
         }
       } catch {
         useToast()({

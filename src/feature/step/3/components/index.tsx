@@ -57,7 +57,25 @@ const Step3Feature: React.FC = props => {
             .doc('general')
             .set(values)
 
-          Router.push('/step/4/')
+          const userInstance = await instance
+            .firestore()
+            .collection('registration')
+            .doc(user.uid)
+            .get()
+
+          const userData = userInstance.data()
+
+          if (userData) {
+            await instance
+              .firestore()
+              .collection('registration')
+              .doc(user.uid)
+              .update({
+                step: userData.step > 4 ? userData.step : 4,
+              })
+
+            Router.push('/step/4/')
+          }
         }
       } catch {
         useToast()({
