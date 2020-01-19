@@ -10,11 +10,11 @@ const Helmet: React.FC = props => {
       titleTemplate={`%s · Young Creator's Camp`}
       link={[
         {
-          href: `/static/icon.png`,
+          href: `/static/favicon-2020.ico`,
           rel: 'shortcut icon',
         },
         {
-          href: `/static/icon.png`,
+          href: `/static/favicon-2020.ico`,
           rel: 'apple-touch-icon',
         },
       ]}
