@@ -140,11 +140,11 @@ const Step1Feature: React.FC = props => {
     }
   }
 
-  let localFetchedData = localStorage.getItem('temporaryData')
-  let localSavedData: IForm =
-    typeof localFetchedData === 'string'
-      ? JSON.parse(localFetchedData)
-      : localFetchedData
+  const localFetchedData = localStorage.getItem('temporaryData'),
+    localSavedData: IForm =
+      typeof localFetchedData === "string"
+        ? JSON.parse(localFetchedData)
+        : localFetchedData
 
   const [form, setForm] =
     useState(localSavedData !== null ? localSavedData : {
