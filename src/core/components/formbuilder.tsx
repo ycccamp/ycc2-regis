@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Box, Flex } from '@chakra-ui/core'
 
@@ -11,6 +11,12 @@ import { IFormBuilderProps } from '../@types/IFormBuilderProps'
 
 const FormBuilder: React.FC<IFormBuilderProps> = props => {
   const { form, formik } = props
+
+  useEffect(() => {
+    if(typeof window === "undefined") return
+    
+    localStorage.setItem("temporaryData", JSON.stringify(props.formik.values))
+  }, [props])
 
   return (
     <React.Fragment>

@@ -37,6 +37,28 @@ import {
   shirtSizes,
 } from '../../../../core/constants'
 
+interface IForm {
+  firstname: string
+  lastname: string
+  gender: string
+  nickname: string
+  birthdate: string
+  class: string
+  school: string
+  religion: string
+  phone: string
+  email: string
+  socialMedia: string
+  shirtSize: string
+  bloodGroup: string
+  address: string
+  disease: string
+  foodAllergy: string
+  drugAllergy: string
+  activity: string
+  expectation: string
+}
+
 const Step1Feature: React.FC = props => {
   const user = useAuth()
   const toast = useToast()
@@ -118,27 +140,34 @@ const Step1Feature: React.FC = props => {
     }
   }
 
-  const [form, setForm] = useState({
-    firstname: '',
-    lastname: '',
-    gender: '',
-    nickname: '',
-    birthdate: '',
-    class: '',
-    school: '',
-    religion: '',
-    phone: '',
-    email: '',
-    socialMedia: '',
-    shirtSize: '',
-    bloodGroup: '',
-    address: '',
-    disease: '',
-    foodAllergy: '',
-    drugAllergy: '',
-    activity: '',
-    expectation: '',
-  })
+  let localFetchedData = localStorage.getItem('temporaryData')
+  let localSavedData: IForm =
+    typeof localFetchedData === 'string'
+      ? JSON.parse(localFetchedData)
+      : localFetchedData
+
+  const [form, setForm] =
+    useState(localSavedData !== null ? localSavedData : {
+        firstname: '',
+        lastname: '',
+        gender: '',
+        nickname: '',
+        birthdate: '',
+        class: '',
+        school: '',
+        religion: '',
+        phone: '',
+        email: '',
+        socialMedia: '',
+        shirtSize: '',
+        bloodGroup: '',
+        address: '',
+        disease: '',
+        foodAllergy: '',
+        drugAllergy: '',
+        activity: '',
+        expectation: '',
+      })
 
   const formik = useFormik({
     initialValues: form,
@@ -209,7 +238,7 @@ const Step1Feature: React.FC = props => {
         .then(doc => {
           if (doc.exists) {
             const data = doc.data()
-            setForm(prev => ({ ...prev, ...data }))
+            setForm((prev: any) => ({ ...prev, ...data }))
           }
 
           instance
