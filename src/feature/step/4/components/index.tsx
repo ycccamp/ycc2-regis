@@ -47,10 +47,12 @@ const Step4Feature: React.FC = props => {
   useEffect(() => {
     if (questions !== null) {
       setForm(
-        Object.keys(questions).reduce(
-          (o, key) => Object.assign(o, { [key]: '' }),
-          {}
-        )
+        localSavedData !== null
+          ? localSavedData
+          : Object.keys(questions).reduce(
+              (o, key) => Object.assign(o, { [key]: '' }),
+              {}
+            )
       )
     }
   }, [questions])
@@ -136,10 +138,12 @@ const Step4Feature: React.FC = props => {
                   setForm((prev: any) => ({ ...prev, ...data }))
                 } else {
                   setForm(
-                    Object.keys(tracks[track].questions).reduce(
-                      (o, key) => Object.assign(o, { [key]: '' }),
-                      {}
-                    )
+                    localSavedData !== null
+                      ? localSavedData
+                      : Object.keys(tracks[track].questions).reduce(
+                          (o, key) => Object.assign(o, { [key]: '' }),
+                          {}
+                        )
                   )
                 }
               })
