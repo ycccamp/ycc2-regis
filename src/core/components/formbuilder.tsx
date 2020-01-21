@@ -10,16 +10,18 @@ import Textarea from './form/textarea'
 import { IFormBuilderProps } from '../@types/IFormBuilderProps'
 
 const FormBuilder: React.FC<IFormBuilderProps> = props => {
-  const { form, formik } = props,
-    concurrentForm = useRef(props.formik.values)
+  const { form, formik } = props
+  const concurrentForm = useRef(props.formik.values)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined') {
+      return
+    }
 
     // Debounce
     concurrentForm.current = props.formik.values
 
-    let debounce = setTimeout(
+    const debounce = setTimeout(
       () =>
         JSON.stringify(concurrentForm.current) ===
         JSON.stringify(props.formik.values)

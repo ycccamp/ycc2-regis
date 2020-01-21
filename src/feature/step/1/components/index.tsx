@@ -140,34 +140,37 @@ const Step1Feature: React.FC = props => {
     }
   }
 
-  const localFetchedData = localStorage.getItem('temporaryData'),
-    localSavedData: IForm =
-      typeof localFetchedData === "string"
-        ? JSON.parse(localFetchedData)
-        : localFetchedData
+  const localFetchedData = localStorage.getItem('temporaryData')
+  const localSavedData: IForm =
+    typeof localFetchedData === 'string'
+      ? JSON.parse(localFetchedData)
+      : localFetchedData
 
-  const [form, setForm] =
-    useState(localSavedData !== null ? localSavedData : {
-        firstname: '',
-        lastname: '',
-        gender: '',
-        nickname: '',
-        birthdate: '',
-        class: '',
-        school: '',
-        religion: '',
-        phone: '',
-        email: '',
-        socialMedia: '',
-        shirtSize: '',
-        bloodGroup: '',
-        address: '',
-        disease: '',
-        foodAllergy: '',
-        drugAllergy: '',
-        activity: '',
-        expectation: '',
-      })
+  const [form, setForm] = useState(
+    localSavedData !== null
+      ? localSavedData
+      : {
+          firstname: '',
+          lastname: '',
+          gender: '',
+          nickname: '',
+          birthdate: '',
+          class: '',
+          school: '',
+          religion: '',
+          phone: '',
+          email: '',
+          socialMedia: '',
+          shirtSize: '',
+          bloodGroup: '',
+          address: '',
+          disease: '',
+          foodAllergy: '',
+          drugAllergy: '',
+          activity: '',
+          expectation: '',
+        }
+  )
 
   const formik = useFormik({
     initialValues: form,
