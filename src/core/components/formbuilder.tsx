@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import { Box, Flex } from '@chakra-ui/core'
 
@@ -10,12 +10,28 @@ import Textarea from './form/textarea'
 import { IFormBuilderProps } from '../@types/IFormBuilderProps'
 
 const FormBuilder: React.FC<IFormBuilderProps> = props => {
-  const { form, formik } = props
+  const { form, formik } = props,
+    concurrentForm = useRef(props.formik.values)
 
   useEffect(() => {
-    if(typeof window === "undefined") return
-    
-    localStorage.setItem("temporaryData", JSON.stringify(props.formik.values))
+    if (typeof window === 'undefined') return
+
+    // Debounce
+    concurrentForm.current = props.formik.values
+
+    let debounce = setTimeout(
+      () =>
+        JSON.stringify(concurrentForm.current) ===
+        JSON.stringify(props.formik.values)
+          ? localStorage.setItem(
+              'temporaryData',
+              JSON.stringify(props.formik.values)
+            )
+          : null,
+      300
+    )
+
+    return () => clearInterval(debounce)
   }, [props])
 
   return (
