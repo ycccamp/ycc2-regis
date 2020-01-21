@@ -13,18 +13,35 @@ import { useAuth } from '../../../../core/services/useAuth'
 
 import FormBuilder from '../../../../core/components/formbuilder'
 
+interface IForm {
+  parentFirstName: string
+  parentLastName: string
+  parentRelation: string
+  parentPhone: string
+}
+
 const Step2Feature: React.FC = props => {
   const user = useAuth()
 
   const [isFormLoad, setIsFormLoad] = useState(true)
   const [isBackButtonLoad, setIsBackButtonLoad] = useState(false)
 
-  const [form, setForm] = useState({
-    parentFirstName: '',
-    parentLastName: '',
-    parentRelation: '',
-    parentPhone: '',
-  })
+  const localFetchedData = localStorage.getItem('temporaryData__step2')
+  const localSavedData: IForm =
+    typeof localFetchedData === 'string'
+      ? JSON.parse(localFetchedData)
+      : localFetchedData
+
+  const [form, setForm] = useState(
+    localSavedData !== null
+      ? localSavedData
+      : {
+          parentFirstName: '',
+          parentLastName: '',
+          parentRelation: '',
+          parentPhone: '',
+        }
+  )
 
   const formik = useFormik({
     initialValues: form,

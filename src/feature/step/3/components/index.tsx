@@ -21,11 +21,19 @@ const Step3Feature: React.FC = props => {
   const [isFormLoad, setIsFormLoad] = useState(true)
   const [isBackButtonLoad, setIsBackButtonLoad] = useState(false)
 
+  const localFetchedData = localStorage.getItem('temporaryData__step3')
+  const localSavedData =
+    typeof localFetchedData === 'string'
+      ? JSON.parse(localFetchedData)
+      : localFetchedData
+
   const [form, setForm] = useState(
-    Object.keys(generalQuestion).reduce(
-      (o, key) => Object.assign(o, { [key]: '' }),
-      {}
-    )
+    localSavedData !== null
+      ? localSavedData
+      : Object.keys(generalQuestion).reduce(
+          (o, key) => Object.assign(o, { [key]: '' }),
+          {}
+        )
   )
 
   const constructedQuestion = Object.entries(generalQuestion).map(
@@ -103,7 +111,7 @@ const Step3Feature: React.FC = props => {
         .then(doc => {
           if (doc.exists) {
             const data = doc.data()
-            setForm(prev => ({ ...prev, ...data }))
+            setForm((prev: any) => ({ ...prev, ...data }))
           }
         })
         .finally(() => {

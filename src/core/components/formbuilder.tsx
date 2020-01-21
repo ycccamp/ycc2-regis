@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
+import { useRouter } from 'next/router'
+
 import { Box, Flex } from '@chakra-ui/core'
 
 import Date from './form/date'
@@ -12,6 +14,7 @@ import { IFormBuilderProps } from '../@types/IFormBuilderProps'
 const FormBuilder: React.FC<IFormBuilderProps> = props => {
   const { form, formik } = props
   const concurrentForm = useRef(props.formik.values)
+  const { asPath } = useRouter()
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -21,20 +24,37 @@ const FormBuilder: React.FC<IFormBuilderProps> = props => {
     // Debounce
     concurrentForm.current = props.formik.values
 
-    const debounce = setTimeout(
+    let localSave = setInterval(() => null, 300)
+
+    switch (asPath) {
+      case '/step/1/':
+        localSave = debounce(props.formik.values, 1)
+
+      case '/step/2/':
+        localSave = debounce(props.formik.values, 2)
+
+      case '/step/3/':
+        localSave = debounce(props.formik.values, 3)
+
+      case '/step/4/':
+        localSave = debounce(props.formik.values, 4)
+    }
+
+    return () => clearInterval(localSave)
+  }, [props])
+
+  const debounce = (values: typeof props.formik.values, step: number) =>
+    setTimeout(
       () =>
         JSON.stringify(concurrentForm.current) ===
         JSON.stringify(props.formik.values)
           ? localStorage.setItem(
-              'temporaryData',
-              JSON.stringify(props.formik.values)
+              `temporaryData__step${step}`,
+              JSON.stringify(values)
             )
           : null,
       300
     )
-
-    return () => clearInterval(debounce)
-  }, [props])
 
   return (
     <React.Fragment>

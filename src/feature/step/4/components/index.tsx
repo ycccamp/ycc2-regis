@@ -23,7 +23,15 @@ const Step4Feature: React.FC = props => {
 
   const [questions, setQuestion] = useState<{ [key: string]: string }>({})
 
-  const [form, setForm] = useState({})
+  const localFetchedData = localStorage.getItem('temporaryData__step4')
+  const localSavedData =
+    typeof localFetchedData === 'string'
+      ? JSON.parse(localFetchedData)
+      : localFetchedData
+
+  const [form, setForm] = useState(
+    localSavedData !== null ? localSavedData : {}
+  )
 
   const constructedQuestion = Object.entries(questions).map((question, i) => {
     return [
@@ -125,7 +133,7 @@ const Step4Feature: React.FC = props => {
               .then(doc => {
                 if (doc.exists) {
                   const data = doc.data()
-                  setForm(prev => ({ ...prev, ...data }))
+                  setForm((prev: any) => ({ ...prev, ...data }))
                 } else {
                   setForm(
                     Object.keys(tracks[track].questions).reduce(
@@ -157,7 +165,7 @@ const Step4Feature: React.FC = props => {
         .then(doc => {
           if (doc.exists) {
             const data = doc.data()
-            setForm(prev => ({ ...prev, ...data }))
+            setForm((prev: any) => ({ ...prev, ...data }))
           }
         })
         .finally(() => {
