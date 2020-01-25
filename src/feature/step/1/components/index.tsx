@@ -33,6 +33,7 @@ import {
   bloodGroups,
   genders,
   grades,
+  provinces,
   religions,
   shirtSizes,
 } from '../../../../core/constants'
@@ -396,9 +397,36 @@ const Step1Feature: React.FC = props => {
                   ],
                   [
                     {
-                      type: 'textarea',
+                      type: 'text',
                       name: 'address',
                       placeholder: 'ที่อยู่',
+                      isRequired: true,
+                    },
+                    {
+                      type: 'text',
+                      name: 'subdistrict',
+                      placeholder: 'แขวง/ตำบล',
+                      isRequired: true,
+                    },
+                  ],
+                  [
+                    {
+                      type: 'text',
+                      name: 'district',
+                      placeholder: 'เขต/อำเภอ',
+                      isRequired: true,
+                    },
+                    {
+                      type: 'select',
+                      name: 'province',
+                      placeholder: 'จังหวัด',
+                      options: provinces,
+                      isRequired: true,
+                    },
+                    {
+                      type: 'text',
+                      name: 'postcode',
+                      placeholder: 'รหัสไปรษณีย์',
                       isRequired: true,
                     },
                   ],
@@ -411,16 +439,12 @@ const Step1Feature: React.FC = props => {
                       placeholder: 'โรคประจำตัว',
                       isRequired: false,
                     },
-                  ],
-                  [
                     {
                       type: 'text',
                       name: 'foodAllergy',
                       placeholder: 'อาหารที่แพ้',
                       isRequired: false,
                     },
-                  ],
-                  [
                     {
                       type: 'text',
                       name: 'drugAllergy',
@@ -437,6 +461,8 @@ const Step1Feature: React.FC = props => {
                       placeholder: 'กิจกรรมหรือผลงานที่น้องๆ เคยทำหรือเข้าร่วม',
                       isRequired: true,
                     },
+                  ],
+                  [
                     {
                       type: 'textarea',
                       name: 'expectation',
