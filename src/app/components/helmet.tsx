@@ -17,6 +17,10 @@ const Helmet: React.FC = props => {
           href: `/static/favicon-2020.ico`,
           rel: 'apple-touch-icon',
         },
+        {
+          href: `https://fonts.googleapis.com/css?family=Prompt|Sarabun&display=swap`,
+          rel: 'stylesheet',
+        },
       ]}
     />
   )

@@ -8,8 +8,8 @@ import {
   Heading,
   ThemeProvider,
 } from '@chakra-ui/core'
-
 import FullStory, { identify } from 'react-fullstory'
+import { theme } from '../theme'
 
 import { useAuth } from '../../core/services/useAuth'
 
@@ -31,7 +31,7 @@ const AppComponent: React.FC<IProps> = props => {
   }, [auth])
 
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <CSSReset />
       <FullStory org={fullstory} />
       <Global />
