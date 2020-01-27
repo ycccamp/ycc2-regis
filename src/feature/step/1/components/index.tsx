@@ -356,14 +356,34 @@ const Step1Feature: React.FC = props => {
                       placeholder: 'นามสกุล',
                       isRequired: true,
                     },
-                  ],
-                  [
                     {
                       type: 'text',
                       name: 'nickname',
                       placeholder: 'ชื่อเล่น',
                       isRequired: true,
                     },
+                  ],
+                  [
+                    {
+                      type: 'text',
+                      name: 'firstnameEn',
+                      placeholder: 'ชื่อ (ภาษาอังกฤษ)',
+                      isRequired: true,
+                    },
+                    {
+                      type: 'text',
+                      name: 'lastnameEn',
+                      placeholder: 'นามสกุล (ภาษาอังกฤษ)',
+                      isRequired: true,
+                    },
+                    {
+                      type: 'text',
+                      name: 'nicknameEn',
+                      placeholder: 'ชื่อเล่น (ภาษาอังกฤษ)',
+                      isRequired: true,
+                    },
+                  ],
+                  [
                     {
                       type: 'date',
                       name: 'birthdate',
