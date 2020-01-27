@@ -323,7 +323,11 @@ const Step1Feature: React.FC = props => {
                 }
               />
               <label htmlFor='avatarUpload'>
-                <Button as='span' size='sm' isDisabled={isAvatarUploading}>
+                <Button
+                  as='span'
+                  size='sm'
+                  isDisabled={isAvatarUploading}
+                  marginTop='10px'>
                   {isAvatarUploading ? (
                     `${Math.floor(uploadProgress)} %`
                   ) : (
@@ -553,7 +557,7 @@ const Step1Feature: React.FC = props => {
                   <PopoverTrigger>
                     <Button
                       mt={4}
-                      variantColor='blue'
+                      className='primary'
                       isLoading={formik.isSubmitting}
                       type='submit'
                       rightIcon='chevron-right'>

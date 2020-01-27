@@ -31,11 +31,15 @@ const withPreact = (nextConfig = {}) => {
 	})
 }
 
-module.exports = withPreact(
-  withBundleAnalyzer({
-    env: {
-      FULLSTORY: process.env.FULLSTORY,
-    },
-    exportTrailingSlash: true,
-  })
+const withSass = require('@zeit/next-sass')
+
+module.exports = withSass(
+	withPreact(
+		withBundleAnalyzer({
+			env: {
+				FULLSTORY: process.env.FULLSTORY,
+			},
+			exportTrailingSlash: true,
+		})
+	)
 )

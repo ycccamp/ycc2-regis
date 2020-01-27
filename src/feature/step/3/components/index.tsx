@@ -160,7 +160,7 @@ const Step3Feature: React.FC = props => {
             <Box px={2}>
               <Button
                 mt={4}
-                variantColor='blue'
+                className='primary'
                 isLoading={formik.isSubmitting}
                 isDisabled={isBackButtonLoad}
                 type='submit'
