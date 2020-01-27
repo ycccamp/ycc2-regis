@@ -74,6 +74,7 @@ const Step2Feature: React.FC = props => {
               .doc(user.uid)
               .update({
                 step: userData.step > 3 ? userData.step : 3,
+                timestamp: new Date().getTime(),
               })
 
             Router.push('/step/3/')
@@ -102,10 +103,23 @@ const Step2Feature: React.FC = props => {
         .collection('forms')
         .doc('parent')
         .get()
-        .then(doc => {
+        .then(async doc => {
           if (doc.exists) {
             const data = doc.data()
-            setForm(prev => ({ ...prev, ...data }))
+            const general = await instance
+              .firestore()
+              .collection('registration')
+              .doc(user.uid)
+              .get()
+
+            const { timestamp }: any = general.data()
+            const localTimestamp: any = localStorage.getItem(
+              'temporaryData__timestamp'
+            )
+
+            if (timestamp < +localTimestamp) {
+              setForm((prev: any) => ({ ...prev, ...data }))
+            }
           }
         })
         .finally(() => {

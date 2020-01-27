@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import { Box, Flex } from '@chakra-ui/core'
 
-import Date from './form/date'
+import DateComponent from './form/date'
 import Input from './form/input'
 import Select from './form/select'
 import Textarea from './form/textarea'
@@ -44,17 +44,20 @@ const FormBuilder: React.FC<IFormBuilderProps> = props => {
   }, [props])
 
   const debounce = (values: typeof props.formik.values, step: number) =>
-    setTimeout(
-      () =>
-        JSON.stringify(concurrentForm.current) ===
+    setTimeout(() => {
+      if (
+        JSON.stringify(concurrentForm.current) !==
         JSON.stringify(props.formik.values)
-          ? localStorage.setItem(
-              `temporaryData__step${step}`,
-              JSON.stringify(values)
-            )
-          : null,
-      300
-    )
+      ) {
+        return
+      }
+
+      localStorage.setItem(`temporaryData__step${step}`, JSON.stringify(values))
+      localStorage.setItem(
+        'temporaryData__timestamp',
+        `${new Date().getTime()}`
+      )
+    }, 300)
 
   return (
     <React.Fragment>
@@ -98,7 +101,7 @@ const FormBuilder: React.FC<IFormBuilderProps> = props => {
                       {...item.props}
                     />
                   ) : item.type === 'date' ? (
-                    <Date
+                    <DateComponent
                       name={item.name}
                       placeholder={item.placeholder}
                       formik={formik}

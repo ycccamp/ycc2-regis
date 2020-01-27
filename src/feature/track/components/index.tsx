@@ -30,6 +30,7 @@ const TrackFeature: React.FC = props => {
           track,
           step: 1,
           isLocked: false,
+          timestamp: new Date().getTime(),
         })
         .then(async () => {
           instance.analytics().logEvent('selectTrack', {
