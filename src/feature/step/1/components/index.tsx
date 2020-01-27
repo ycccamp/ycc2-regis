@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+import Link from 'next/link'
 import Router from 'next/router'
 
 import {
@@ -33,6 +34,7 @@ import {
   bloodGroups,
   genders,
   grades,
+  provinces,
   religions,
   shirtSizes,
 } from '../../../../core/constants'
@@ -442,9 +444,36 @@ const Step1Feature: React.FC = props => {
                   ],
                   [
                     {
-                      type: 'textarea',
+                      type: 'text',
                       name: 'address',
                       placeholder: 'ที่อยู่',
+                      isRequired: true,
+                    },
+                    {
+                      type: 'text',
+                      name: 'subdistrict',
+                      placeholder: 'แขวง/ตำบล',
+                      isRequired: true,
+                    },
+                  ],
+                  [
+                    {
+                      type: 'text',
+                      name: 'district',
+                      placeholder: 'เขต/อำเภอ',
+                      isRequired: true,
+                    },
+                    {
+                      type: 'select',
+                      name: 'province',
+                      placeholder: 'จังหวัด',
+                      options: provinces,
+                      isRequired: true,
+                    },
+                    {
+                      type: 'text',
+                      name: 'postcode',
+                      placeholder: 'รหัสไปรษณีย์',
                       isRequired: true,
                     },
                   ],
@@ -457,16 +486,12 @@ const Step1Feature: React.FC = props => {
                       placeholder: 'โรคประจำตัว',
                       isRequired: false,
                     },
-                  ],
-                  [
                     {
                       type: 'text',
                       name: 'foodAllergy',
                       placeholder: 'อาหารที่แพ้',
                       isRequired: false,
                     },
-                  ],
-                  [
                     {
                       type: 'text',
                       name: 'drugAllergy',
@@ -483,6 +508,8 @@ const Step1Feature: React.FC = props => {
                       placeholder: 'กิจกรรมหรือผลงานที่น้องๆ เคยทำหรือเข้าร่วม',
                       isRequired: true,
                     },
+                  ],
+                  [
                     {
                       type: 'textarea',
                       name: 'expectation',
@@ -495,9 +522,11 @@ const Step1Feature: React.FC = props => {
             />
             <Flex justifyContent='center' flexWrap='wrap'>
               <Box px={2}>
-                <Button mt={4} isDisabled={true} leftIcon='chevron-left'>
-                  ขั้นตอนก่อนหน้า
-                </Button>
+                <Link href='/track'>
+                  <Button mt={4} leftIcon='chevron-left'>
+                    ขั้นตอนก่อนหน้า
+                  </Button>
+                </Link>
               </Box>
               <Box px={2}>
                 <Popover isOpen={popover} onClose={() => setPopover(false)}>
