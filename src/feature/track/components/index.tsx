@@ -66,7 +66,7 @@ const TrackFeature: React.FC = props => {
     <Flex flexWrap='wrap'>
       {Object.entries(tracks).map(track => (
         <Flex
-          width={1 / 2}
+          width={1 / 3}
           p={4}
           flexWrap='wrap'
           justifyContent='center'
