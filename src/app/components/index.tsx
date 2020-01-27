@@ -8,8 +8,8 @@ import {
   Heading,
   ThemeProvider,
 } from '@chakra-ui/core'
-import { theme } from '../theme'
 import FullStory, { identify } from 'react-fullstory'
+import { theme } from '../theme'
 
 import { useAuth } from '../../core/services/useAuth'
 

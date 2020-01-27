@@ -20,7 +20,7 @@ const Helmet: React.FC = props => {
         {
           href: `https://fonts.googleapis.com/css?family=Prompt|Sarabun&display=swap`,
           rel: 'stylesheet',
-        }
+        },
       ]}
     />
   )
