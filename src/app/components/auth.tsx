@@ -67,7 +67,12 @@ const AuthComponent: React.FC<IAuthProps> = props => {
           <Button
             isLoading={isLoginButtonLoad}
             onClick={loginHandler}
-            className='primary'>
+            variantColor='flory'
+            willChange='transform'
+            _hover={{
+              transform: 'translateY(-4px)',
+              boxShadow: '0 5px 10px rgba(0, 0, 0, 0.05)',
+            }}>
             เข้าสู่ระบบด้วย Facebook
           </Button>
         </Flex>

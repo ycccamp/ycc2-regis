@@ -91,7 +91,7 @@ const Step4Feature: React.FC = props => {
         .doc(user.uid)
         .collection('forms')
         .doc('track')
-        .update({
+        .set({
           file: `/registation/design/${user.uid}/${fieldName}/${file.name}`,
         })
 
@@ -130,26 +130,31 @@ const Step4Feature: React.FC = props => {
     }
   }
 
-  useEffect(() => {
-    if (user !== null) {
-      const instance = firebase()
+  if (user !== null) {
+    const instance = firebase()
 
-      const trackData = instance
-        .firestore()
-        .collection('registration')
-        .doc(user.uid)
-        .collection('forms')
-        .doc('track')
-        .get()
-        .then((docs: any) => {
-          const docData = docs.data()
+    const trackData = instance
+      .firestore()
+      .collection('registration')
+      .doc(user.uid)
+      .collection('forms')
+      .doc('track')
+      .get()
+      .then((docs: any) => {
+        const docData = docs.data()
 
-          if (typeof docData.file !== 'undefined') {
-            setAvatarUrl(docData.file)
-          }
-        })
-    }
-  }, [])
+        if (typeof docData !== 'undefined' && docData.file) {
+          instance
+            .storage()
+            .ref()
+            .child(docData.file)
+            .getDownloadURL()
+            .then((url: any) => {
+              setAvatarUrl(url)
+            })
+        }
+      })
+  }
 
   useEffect(() => {
     if (questions !== null && localSavedData === null) {
@@ -189,7 +194,7 @@ const Step4Feature: React.FC = props => {
               .firestore()
               .collection('registration')
               .doc(user.uid)
-              .update({
+              .set({
                 step: userData.step > 5 ? userData.step : 5,
               })
 

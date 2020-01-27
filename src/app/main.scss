@@ -1,13 +1,3 @@
-h2 {
-  font-weight: 300;
-}
-
-body {
-  background-image: radial-gradient(rgba(64, 147, 164, 0.5) 10px, transparent 10px), radial-gradient(rgba(232, 100, 119, 0.5) 10px, transparent 10px);
-  background-size: 300px 300px;
-  background-position: 0px 0px, 150px 150px;
-}
-
 .primary {
   color: white;
   font-weight: 300 !important;
@@ -23,7 +13,7 @@ body {
 }
 
 button,
-span[type=button] {
+span[type='button'] {
   font-weight: 300 !important;
   will-change: transform;
 
@@ -31,10 +21,6 @@ span[type=button] {
     transform: translateY(-4px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
   }
-}
-
-.rounded {
-  border-radius: 10em;
 }
 
 h2 {
