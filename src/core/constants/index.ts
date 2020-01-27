@@ -5,6 +5,14 @@ export const generalQuestion: { [key: string]: string } = {
 export const tracks: {
   [key: string]: { title: string; questions: { [key: string]: string } }
 } = {
+  creative: {
+    title: 'Creative',
+    questions: {
+      Q1: `ลองออกแบบระบบที่น้องๆ คิดว่าสามารถช่วยให้การเดินทางด้วยระบบขนส่งสาธารณะดียิ่งขึ้น ไม่ว่าจะเป็น แท็กซี่ รถเมล์ รถไฟฟ้า รถไฟ หรือเครื่องบิน และจะใช้เทคโนโลยีอะไรในการแก้ปัญหานี้ได้บ้าง`,
+      Q2: `ลองเขียนโปรแกรมเพื่อแนะนำตัวเองสั้นๆ ในรูปแบบใดๆ ก็ได้ ไม่ว่าจะเป็นเว็บไซต์, โปรแกรม command line หรือรูปแบบอื่นๆ ตามที่ต้องการ
+          (ถ้าเป็นโค้ด HTML สามารถวางในช่องด้านล่างได้เลย หรือสามารถส่งโค้ดมาผ่าน GitHub, Gist หรือแพลตฟอร์มอื่นๆ ได้ตามต้องการ)`,
+    },
+  },
   developer: {
     title: 'Developer',
     questions: {
@@ -47,14 +55,10 @@ export const genders = {
 }
 
 export const bloodGroups = {
-  'O+': 'O+',
-  'O−': 'O-',
-  'A+': 'A+',
-  'A-': 'A-',
-  'B+': 'B+',
-  'B-': 'B-',
-  'AB+': 'AB+',
-  'AB-': 'AB-',
+  O: 'O',
+  A: 'A',
+  B: 'B',
+  AB: 'AB',
 }
 
 export const shirtSizes = {

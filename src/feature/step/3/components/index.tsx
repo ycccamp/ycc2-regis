@@ -21,11 +21,19 @@ const Step3Feature: React.FC = props => {
   const [isFormLoad, setIsFormLoad] = useState(true)
   const [isBackButtonLoad, setIsBackButtonLoad] = useState(false)
 
+  const localFetchedData = localStorage.getItem('temporaryData__step3')
+  const localSavedData =
+    typeof localFetchedData === 'string'
+      ? JSON.parse(localFetchedData)
+      : localFetchedData
+
   const [form, setForm] = useState(
-    Object.keys(generalQuestion).reduce(
-      (o, key) => Object.assign(o, { [key]: '' }),
-      {}
-    )
+    localSavedData !== null
+      ? localSavedData
+      : Object.keys(generalQuestion).reduce(
+          (o, key) => Object.assign(o, { [key]: '' }),
+          {}
+        )
   )
 
   const constructedQuestion = Object.entries(generalQuestion).map(
@@ -72,6 +80,7 @@ const Step3Feature: React.FC = props => {
               .doc(user.uid)
               .update({
                 step: userData.step > 4 ? userData.step : 4,
+                timestamp: new Date().getTime(),
               })
 
             Router.push('/step/4/')
@@ -100,10 +109,23 @@ const Step3Feature: React.FC = props => {
         .collection('forms')
         .doc('general')
         .get()
-        .then(doc => {
+        .then(async doc => {
           if (doc.exists) {
             const data = doc.data()
-            setForm(prev => ({ ...prev, ...data }))
+            const general = await instance
+              .firestore()
+              .collection('registration')
+              .doc(user.uid)
+              .get()
+
+            const { timestamp }: any = general.data()
+            const localTimestamp: any = localStorage.getItem(
+              'temporaryData__timestamp'
+            )
+
+            if (timestamp < +localTimestamp) {
+              setForm((prev: any) => ({ ...prev, ...data }))
+            }
           }
         })
         .finally(() => {
