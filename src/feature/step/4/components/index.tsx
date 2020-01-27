@@ -61,7 +61,7 @@ const Step4Feature: React.FC = props => {
             .doc(user.uid)
             .collection('forms')
             .doc('track')
-            .set({ ...values, step: 5 })
+            .set({ ...values })
 
           const userInstance = await instance
             .firestore()

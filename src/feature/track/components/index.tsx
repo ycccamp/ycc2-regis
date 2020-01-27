@@ -16,39 +16,49 @@ const TrackFeature: React.FC = props => {
 
   const [activeClick, setActiveClick] = useState<string>('')
 
-  const trackHandler = (track: string) => {
+  const trackHandler = async (track: string) => {
     setActiveClick(track)
 
     if (user !== null) {
       const instance = firebase()
 
-      instance
+      const userInstance = await instance
         .firestore()
         .collection('registration')
         .doc(user.uid)
-        .set({
-          track,
-          step: 1,
-          isLocked: false,
-        })
-        .then(async () => {
-          instance.analytics().logEvent('selectTrack', {
-            track,
-          })
-          instance.analytics().setUserProperties({ track })
+        .get()
 
-          await Router.push('/step/1/')
-        })
-        .catch(() => {
-          useToast()({
-            title: 'เกิดข้อผิดพลาด',
-            description: 'ไม่สามารถเลือกสาขาให้ได้สำเร็จ กรุณาลองใหม่อีกครั้ง',
-            status: 'error',
-            duration: 4000,
-            isClosable: true,
+      const userData = userInstance.data()
+      if (userData) {
+        instance
+          .firestore()
+          .collection('registration')
+          .doc(user.uid)
+          .set({
+            track,
+            step: userData.step > 1 ? userData.step : 1,
+            isLocked: false,
           })
-          setActiveClick('')
-        })
+          .then(async () => {
+            instance.analytics().logEvent('selectTrack', {
+              track,
+            })
+            instance.analytics().setUserProperties({ track })
+
+            await Router.push('/step/1/')
+          })
+          .catch(() => {
+            useToast()({
+              title: 'เกิดข้อผิดพลาด',
+              description:
+                'ไม่สามารถเลือกสาขาให้ได้สำเร็จ กรุณาลองใหม่อีกครั้ง',
+              status: 'error',
+              duration: 4000,
+              isClosable: true,
+            })
+            setActiveClick('')
+          })
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+import Link from 'next/link'
 import Router from 'next/router'
 
 import {
@@ -475,9 +476,11 @@ const Step1Feature: React.FC = props => {
             />
             <Flex justifyContent='center' flexWrap='wrap'>
               <Box px={2}>
-                <Button mt={4} isDisabled={true} leftIcon='chevron-left'>
-                  ขั้นตอนก่อนหน้า
-                </Button>
+                <Link href='/track'>
+                  <Button mt={4} leftIcon='chevron-left'>
+                    ขั้นตอนก่อนหน้า
+                  </Button>
+                </Link>
               </Box>
               <Box px={2}>
                 <Popover isOpen={popover} onClose={() => setPopover(false)}>
