@@ -71,10 +71,8 @@ const TrackFeature: React.FC = props => {
           flexWrap='wrap'
           justifyContent='center'
           key={`track-${track[0]}`}>
-          <Heading size='md' width='100%' textAlign='center' pb={4}>
-            Image for {track[1].title}
-          </Heading>
           <Button
+            className='primary'
             onClick={() => trackHandler(track[0])}
             isLoading={activeClick === track[0]}
             isDisabled={activeClick !== ''}>
