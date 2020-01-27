@@ -10,7 +10,7 @@ import {
 import { IFormInputProps } from '../../@types/IFormInputProps'
 
 const FormInput: React.FC<IFormInputProps> = props => {
-  const { name, formik, placeholder, isRequired, title, maxLength } = props
+  const { name, formik, placeholder, title, isRequired } = props
 
   return (
     <FormControl
@@ -24,7 +24,7 @@ const FormInput: React.FC<IFormInputProps> = props => {
         onChange={formik.handleChange}
         value={formik.values[name]}
         placeholder={placeholder ? placeholder : title}
-        maxLength={maxLength}
+        type='email'
       />
       <FormErrorMessage>{formik.errors[name]}</FormErrorMessage>
     </FormControl>

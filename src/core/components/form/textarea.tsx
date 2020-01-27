@@ -10,7 +10,7 @@ import {
 import { IFormTextareaProps } from '../../@types/IFormTextareaProps'
 
 const FormTextarea: React.FC<IFormTextareaProps> = props => {
-  const { name, formik, placeholder, isRequired } = props
+  const { name, formik, title, isRequired } = props
 
   return (
     <FormControl
@@ -18,7 +18,7 @@ const FormTextarea: React.FC<IFormTextareaProps> = props => {
         formik.errors[name] !== undefined && formik.touched[name] !== undefined
       }
       isRequired={isRequired}>
-      <FormLabel htmlFor={name}>{placeholder}</FormLabel>
+      <FormLabel htmlFor={name}>{title}</FormLabel>
       <Input
         id={name}
         as='textarea'

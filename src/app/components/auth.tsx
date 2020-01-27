@@ -64,7 +64,10 @@ const AuthComponent: React.FC<IAuthProps> = props => {
           <Text width='100%' textAlign='center' pb={4}>
             กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ
           </Text>
-          <Button isLoading={isLoginButtonLoad} onClick={loginHandler} className="primary">
+          <Button
+            isLoading={isLoginButtonLoad}
+            onClick={loginHandler}
+            className='primary'>
             เข้าสู่ระบบด้วย Facebook
           </Button>
         </Flex>

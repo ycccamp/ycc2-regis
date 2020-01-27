@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { Box, Flex } from '@chakra-ui/core'
 
 import DateComponent from './form/date'
+import Email from './form/Email'
 import Input from './form/input'
 import Select from './form/select'
 import Textarea from './form/textarea'
@@ -78,6 +79,16 @@ const FormBuilder: React.FC<IFormBuilderProps> = props => {
                   {item.type === 'text' ? (
                     <Input
                       name={item.name}
+                      title={item.title}
+                      placeholder={item.placeholder}
+                      formik={formik}
+                      isRequired={item.isRequired}
+                      {...item.props}
+                    />
+                  ) : item.type === 'email' ? (
+                    <Email
+                      name={item.name}
+                      title={item.title}
                       placeholder={item.placeholder}
                       formik={formik}
                       isRequired={item.isRequired}
@@ -86,6 +97,7 @@ const FormBuilder: React.FC<IFormBuilderProps> = props => {
                   ) : item.type === 'textarea' ? (
                     <Textarea
                       name={item.name}
+                      title={item.title}
                       placeholder={item.placeholder}
                       formik={formik}
                       isRequired={item.isRequired}
@@ -94,6 +106,7 @@ const FormBuilder: React.FC<IFormBuilderProps> = props => {
                   ) : item.type === 'select' ? (
                     <Select
                       name={item.name}
+                      title={item.title}
                       placeholder={item.placeholder}
                       options={item.options}
                       formik={formik}
@@ -103,6 +116,7 @@ const FormBuilder: React.FC<IFormBuilderProps> = props => {
                   ) : item.type === 'date' ? (
                     <DateComponent
                       name={item.name}
+                      title={item.title}
                       placeholder={item.placeholder}
                       formik={formik}
                       isRequired={item.isRequired}

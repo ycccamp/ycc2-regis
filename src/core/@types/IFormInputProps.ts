@@ -1,6 +1,8 @@
 export interface IFormInputProps {
   name: string
-  placeholder: string
+  title: string
+  placeholder?: string
   isRequired?: boolean
   formik: any
+  maxLength?: number
 }

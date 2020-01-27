@@ -1,6 +1,7 @@
 export interface IFormTextareaProps {
   name: string
-  placeholder: string
+  title: string
+  placeholder?: string
   isRequired?: boolean
   formik: any
 }

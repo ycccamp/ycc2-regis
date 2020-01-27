@@ -1,6 +1,7 @@
 export interface IFormDateProps {
   name: string
-  placeholder: string
+  title: string
+  placeholder?: string
   isRequired?: boolean
   formik: any
 }
