@@ -23,7 +23,15 @@ const Step4Feature: React.FC = props => {
 
   const [questions, setQuestion] = useState<{ [key: string]: string }>({})
 
-  const [form, setForm] = useState({})
+  const localFetchedData = localStorage.getItem('temporaryData__step4')
+  const localSavedData =
+    typeof localFetchedData === 'string'
+      ? JSON.parse(localFetchedData)
+      : localFetchedData
+
+  const [form, setForm] = useState(
+    localSavedData !== null ? localSavedData : {}
+  )
 
   const constructedQuestion = Object.entries(questions).map((question, i) => {
     return [
@@ -37,12 +45,10 @@ const Step4Feature: React.FC = props => {
   }) as any // TypeScript bug
 
   useEffect(() => {
-    if (questions !== null) {
-      setForm(
-        Object.keys(questions).reduce(
-          (o, key) => Object.assign(o, { [key]: '' }),
-          {}
-        )
+    if (questions !== null && localSavedData === null) {
+      Object.keys(questions).reduce(
+        (o, key) => Object.assign(o, { [key]: '' }),
+        {}
       )
     }
   }, [questions])
@@ -122,16 +128,31 @@ const Step4Feature: React.FC = props => {
               .collection('forms')
               .doc('track')
               .get()
-              .then(doc => {
+              .then(async doc => {
                 if (doc.exists) {
                   const data = doc.data()
-                  setForm(prev => ({ ...prev, ...data }))
+                  const general = await instance
+                    .firestore()
+                    .collection('registration')
+                    .doc(user.uid)
+                    .get()
+
+                  const { timestamp }: any = general.data()
+                  const localTimestamp: any = localStorage.getItem(
+                    'temporaryData__timestamp'
+                  )
+
+                  if (timestamp < +localTimestamp) {
+                    setForm((prev: any) => ({ ...prev, ...data }))
+                  }
                 } else {
                   setForm(
-                    Object.keys(tracks[track].questions).reduce(
-                      (o, key) => Object.assign(o, { [key]: '' }),
-                      {}
-                    )
+                    localSavedData !== null
+                      ? localSavedData
+                      : Object.keys(tracks[track].questions).reduce(
+                          (o, key) => Object.assign(o, { [key]: '' }),
+                          {}
+                        )
                   )
                 }
               })
@@ -157,7 +178,7 @@ const Step4Feature: React.FC = props => {
         .then(doc => {
           if (doc.exists) {
             const data = doc.data()
-            setForm(prev => ({ ...prev, ...data }))
+            setForm((prev: any) => ({ ...prev, ...data }))
           }
         })
         .finally(() => {

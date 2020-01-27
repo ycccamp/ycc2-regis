@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
+
+import { useRouter } from 'next/router'
 
 import { Box, Flex } from '@chakra-ui/core'
 
-import Date from './form/date'
+import DateComponent from './form/date'
 import Input from './form/input'
 import Select from './form/select'
 import Textarea from './form/textarea'
@@ -11,6 +13,51 @@ import { IFormBuilderProps } from '../@types/IFormBuilderProps'
 
 const FormBuilder: React.FC<IFormBuilderProps> = props => {
   const { form, formik } = props
+  const concurrentForm = useRef(props.formik.values)
+  const { asPath } = useRouter()
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    // Debounce
+    concurrentForm.current = props.formik.values
+
+    let localSave = setInterval(() => null, 300)
+
+    switch (asPath) {
+      case '/step/1/':
+        localSave = debounce(props.formik.values, 1)
+
+      case '/step/2/':
+        localSave = debounce(props.formik.values, 2)
+
+      case '/step/3/':
+        localSave = debounce(props.formik.values, 3)
+
+      case '/step/4/':
+        localSave = debounce(props.formik.values, 4)
+    }
+
+    return () => clearInterval(localSave)
+  }, [props])
+
+  const debounce = (values: typeof props.formik.values, step: number) =>
+    setTimeout(() => {
+      if (
+        JSON.stringify(concurrentForm.current) !==
+        JSON.stringify(props.formik.values)
+      ) {
+        return
+      }
+
+      localStorage.setItem(`temporaryData__step${step}`, JSON.stringify(values))
+      localStorage.setItem(
+        'temporaryData__timestamp',
+        `${new Date().getTime()}`
+      )
+    }, 300)
 
   return (
     <React.Fragment>
@@ -54,7 +101,7 @@ const FormBuilder: React.FC<IFormBuilderProps> = props => {
                       {...item.props}
                     />
                   ) : item.type === 'date' ? (
-                    <Date
+                    <DateComponent
                       name={item.name}
                       placeholder={item.placeholder}
                       formik={formik}
