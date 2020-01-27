@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { Box, Flex } from '@chakra-ui/core'
 
 import DateComponent from './form/date'
-import Email from './form/Email'
+import Email from './form/email'
 import Input from './form/input'
 import Select from './form/select'
 import Textarea from './form/textarea'
