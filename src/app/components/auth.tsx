@@ -21,7 +21,7 @@ const AuthComponent: React.FC<IAuthProps> = props => {
     setIsLoginButtonLoad(true)
 
     const instance = firebase()
-    const provider = new auth.GoogleAuthProvider()
+    const provider = new auth.FacebookAuthProvider()
 
     instance
       .auth()
