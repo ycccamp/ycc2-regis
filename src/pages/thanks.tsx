@@ -11,7 +11,7 @@ const ThanksPage: NextPage = props => {
         ขอบคุณที่สมัครเข้าร่วมค่าย Young Creator's Camp ค่ะ! 💖
       </Heading>
       <Flex justifyContent='center' pt={6}>
-        <Link href='https://www.ycc.in.th' _hover={{ textDecoration: 'none' }}>
+        <Link href='https://ycc.in.th' _hover={{ textDecoration: 'none' }}>
           <Button>กลับสู่เว็บไซต์หลัก</Button>
         </Link>
       </Flex>
