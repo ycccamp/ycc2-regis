@@ -512,6 +512,11 @@ const Step1Feature: React.FC = props => {
                       name: 'postcode',
                       title: 'รหัสไปรษณีย์',
                       isRequired: true,
+                      props: {
+                        maxLength: 5,
+                        pattern: '[0-9]{5}',
+                        title: 'กรอกรหัสไปรษณีย์ 5 หลักให้ถูกต้อง',
+                      },
                     },
                   ],
                 ],
