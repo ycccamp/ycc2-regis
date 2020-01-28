@@ -10,7 +10,7 @@ import {
 import { IFormSelectProps } from '../../@types/IFormSelectProps'
 
 const FormSelect: React.FC<IFormSelectProps> = props => {
-  const { name, formik, options, placeholder, isRequired } = props
+  const { name, formik, options, title, isRequired } = props
 
   return (
     <FormControl
@@ -18,7 +18,7 @@ const FormSelect: React.FC<IFormSelectProps> = props => {
         formik.errors[name] !== undefined && formik.touched[name] !== undefined
       }
       isRequired={isRequired}>
-      <FormLabel htmlFor={name}>{placeholder}</FormLabel>
+      <FormLabel htmlFor={name}>{title}</FormLabel>
       <Select
         placeholder=''
         id={name}

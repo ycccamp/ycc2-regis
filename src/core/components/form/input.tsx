@@ -10,7 +10,15 @@ import {
 import { IFormInputProps } from '../../@types/IFormInputProps'
 
 const FormInput: React.FC<IFormInputProps> = props => {
-  const { name, formik, placeholder, isRequired } = props
+  const {
+    name,
+    formik,
+    placeholder,
+    isRequired,
+    title,
+    maxLength,
+    extra,
+  } = props
 
   return (
     <FormControl
@@ -18,12 +26,14 @@ const FormInput: React.FC<IFormInputProps> = props => {
         formik.errors[name] !== undefined && formik.touched[name] !== undefined
       }
       isRequired={isRequired}>
-      <FormLabel htmlFor={name}>{placeholder}</FormLabel>
+      <FormLabel htmlFor={name}>{title}</FormLabel>
       <Input
         id={name}
         onChange={formik.handleChange}
         value={formik.values[name]}
-        placeholder={placeholder}
+        placeholder={placeholder ? placeholder : title}
+        maxLength={maxLength}
+        {...extra}
       />
       <FormErrorMessage>{formik.errors[name]}</FormErrorMessage>
     </FormControl>

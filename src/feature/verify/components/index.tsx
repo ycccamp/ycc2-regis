@@ -159,7 +159,7 @@ const VerifyFeature: React.FC = props => {
         <Box px={2}>
           <Button
             mt={4}
-            variantColor='green'
+            className='primary'
             type='submit'
             ref={btnRef}
             onClick={onOpen}
@@ -191,7 +191,7 @@ const VerifyFeature: React.FC = props => {
             <Button
               isLoading={isConfirmButtonLoad}
               onClick={lockHandler}
-              variantColor='blue'
+              className='primary'
               ml={3}>
               ยืนยัน
             </Button>

@@ -9,13 +9,6 @@ import {
   Button,
   Flex,
   Heading,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
   Spinner,
   Text,
   useToast,
@@ -66,7 +59,6 @@ const Step1Feature: React.FC = props => {
   const toast = useToast()
 
   const [isFormLoad, setIsFormLoad] = useState<boolean>(true)
-  const [popover, setPopover] = useState<boolean>(false)
 
   const [avatarUrl, setAvatarUrl] = useState<string>('')
   const [isAvatarUploading, setIsAvatarUploading] = useState<boolean>(false)
@@ -224,7 +216,13 @@ const Step1Feature: React.FC = props => {
           })
         }
       } else {
-        setPopover(true)
+        toast({
+          title: 'ขั้นตอนนี้ยังไม่สำเร็จ',
+          description: 'คุณยังไม่ได้อัพโหลดรูปภาพประจำตัว',
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+        })
         setIsFormLoad(false)
       }
     },
@@ -309,7 +307,7 @@ const Step1Feature: React.FC = props => {
         <React.Fragment>
           <Box py={4}>
             <Flex justifyContent='center'>
-              <Avatar size='xl' src={avatarUrl} />
+              <Avatar size='2xl' src={avatarUrl} />
             </Flex>
             <Flex justifyContent='center' pt={2}>
               <input
@@ -323,7 +321,11 @@ const Step1Feature: React.FC = props => {
                 }
               />
               <label htmlFor='avatarUpload'>
-                <Button as='span' size='sm' isDisabled={isAvatarUploading}>
+                <Button
+                  as='span'
+                  size='sm'
+                  isDisabled={isAvatarUploading}
+                  marginTop='10px'>
                   {isAvatarUploading ? (
                     `${Math.floor(uploadProgress)} %`
                   ) : (
@@ -347,19 +349,22 @@ const Step1Feature: React.FC = props => {
                     {
                       type: 'text',
                       name: 'firstname',
-                      placeholder: 'ชื่อ',
+                      title: 'ชื่อ',
+                      placeholder: 'กันติชา',
                       isRequired: true,
                     },
                     {
                       type: 'text',
                       name: 'lastname',
-                      placeholder: 'นามสกุล',
+                      title: 'นามสกุล',
+                      placeholder: 'นาดี',
                       isRequired: true,
                     },
                     {
                       type: 'text',
                       name: 'nickname',
-                      placeholder: 'ชื่อเล่น',
+                      title: 'ชื่อเล่น',
+                      placeholder: 'ชา',
                       isRequired: true,
                     },
                   ],
@@ -367,19 +372,22 @@ const Step1Feature: React.FC = props => {
                     {
                       type: 'text',
                       name: 'firstnameEn',
-                      placeholder: 'ชื่อ (ภาษาอังกฤษ)',
+                      title: 'ชื่อ (ภาษาอังกฤษ)',
+                      placeholder: 'Kanticha',
                       isRequired: true,
                     },
                     {
                       type: 'text',
                       name: 'lastnameEn',
-                      placeholder: 'นามสกุล (ภาษาอังกฤษ)',
+                      title: 'นามสกุล (ภาษาอังกฤษ)',
+                      placeholder: 'Nadee',
                       isRequired: true,
                     },
                     {
                       type: 'text',
                       name: 'nicknameEn',
-                      placeholder: 'ชื่อเล่น (ภาษาอังกฤษ)',
+                      title: 'ชื่อเล่น (ภาษาอังกฤษ)',
+                      placeholder: 'Cha',
                       isRequired: true,
                     },
                   ],
@@ -387,13 +395,13 @@ const Step1Feature: React.FC = props => {
                     {
                       type: 'date',
                       name: 'birthdate',
-                      placeholder: 'วันเกิด',
+                      title: 'วันเกิด',
                       isRequired: true,
                     },
                     {
                       type: 'select',
                       name: 'gender',
-                      placeholder: 'เพศ',
+                      title: 'เพศ',
                       options: genders,
                       isRequired: true,
                     },
@@ -404,14 +412,15 @@ const Step1Feature: React.FC = props => {
                     {
                       type: 'select',
                       name: 'class',
-                      placeholder: 'ระดับชั้น',
+                      title: 'ระดับชั้น',
                       options: grades,
                       isRequired: true,
                     },
                     {
                       type: 'text',
                       name: 'school',
-                      placeholder: 'โรงเรียน',
+                      title: 'สถานศึกษา',
+                      placeholder: 'สารวิทยา',
                       isRequired: true,
                     },
                   ],
@@ -419,28 +428,36 @@ const Step1Feature: React.FC = props => {
                     {
                       type: 'select',
                       name: 'religion',
-                      placeholder: 'ศาสนา',
+                      title: 'ศาสนา',
                       options: religions,
                       isRequired: true,
                     },
                     {
                       type: 'text',
                       name: 'phone',
-                      placeholder: 'เบอร์โทรศัพท์',
+                      title: 'เบอร์โทรศัพท์',
+                      placeholder: '08XXXXXXXX (10 ตัว)',
                       isRequired: true,
+                      props: {
+                        maxLength: 10,
+                        pattern: '[0-9]{10}',
+                        title:
+                          'เบอร์โทรศัพท์ต้องกรอกให้ครบทั้งหมด 10 หลักโดยไม่มีขีด',
+                      },
                     },
                   ],
                   [
                     {
-                      type: 'text',
+                      type: 'email',
                       name: 'email',
-                      placeholder: 'อีเมล',
+                      title: 'อีเมล',
+                      placeholder: 'xxxxxxxx@xxx.xxx',
                       isRequired: true,
                     },
                     {
                       type: 'text',
-                      name: 'socialMedia',
-                      placeholder: 'Social Media',
+                      name: 'facebook',
+                      title: 'ชื่อ Facebook',
                       isRequired: true,
                     },
                   ],
@@ -450,14 +467,14 @@ const Step1Feature: React.FC = props => {
                     {
                       type: 'select',
                       name: 'shirtSize',
-                      placeholder: 'ไซส์เสื้อ',
+                      title: 'ไซส์เสื้อ',
                       options: shirtSizes,
                       isRequired: true,
                     },
                     {
                       type: 'select',
                       name: 'bloodGroup',
-                      placeholder: 'กรุ๊ปเลือด',
+                      title: 'กรุ๊ปเลือด',
                       options: bloodGroups,
                       isRequired: true,
                     },
@@ -466,13 +483,13 @@ const Step1Feature: React.FC = props => {
                     {
                       type: 'text',
                       name: 'address',
-                      placeholder: 'ที่อยู่',
+                      title: 'ที่อยู่',
                       isRequired: true,
                     },
                     {
                       type: 'text',
                       name: 'subdistrict',
-                      placeholder: 'แขวง/ตำบล',
+                      title: 'แขวง/ตำบล',
                       isRequired: true,
                     },
                   ],
@@ -480,20 +497,20 @@ const Step1Feature: React.FC = props => {
                     {
                       type: 'text',
                       name: 'district',
-                      placeholder: 'เขต/อำเภอ',
+                      title: 'เขต/อำเภอ',
                       isRequired: true,
                     },
                     {
                       type: 'select',
                       name: 'province',
-                      placeholder: 'จังหวัด',
+                      title: 'จังหวัด',
                       options: provinces,
                       isRequired: true,
                     },
                     {
                       type: 'text',
                       name: 'postcode',
-                      placeholder: 'รหัสไปรษณีย์',
+                      title: 'รหัสไปรษณีย์',
                       isRequired: true,
                     },
                   ],
@@ -503,19 +520,22 @@ const Step1Feature: React.FC = props => {
                     {
                       type: 'text',
                       name: 'disease',
-                      placeholder: 'โรคประจำตัว',
+                      title: 'โรคประจำตัว',
+                      placeholder: 'หอบหืด, ภูมิแพ้',
                       isRequired: false,
                     },
                     {
                       type: 'text',
                       name: 'foodAllergy',
-                      placeholder: 'อาหารที่แพ้',
+                      title: 'อาหารที่แพ้',
+                      placeholder: 'กุ้ง , นมวัว',
                       isRequired: false,
                     },
                     {
                       type: 'text',
                       name: 'drugAllergy',
-                      placeholder: 'ยาที่แพ้',
+                      title: 'ยาที่แพ้',
+                      placeholder: 'Aspirin',
                       isRequired: false,
                     },
                   ],
@@ -525,7 +545,7 @@ const Step1Feature: React.FC = props => {
                     {
                       type: 'textarea',
                       name: 'activity',
-                      placeholder: 'กิจกรรมหรือผลงานที่น้องๆ เคยทำหรือเข้าร่วม',
+                      title: 'กิจกรรมหรือผลงานที่น้องๆ เคยทำหรือเข้าร่วม',
                       isRequired: true,
                     },
                   ],
@@ -533,7 +553,7 @@ const Step1Feature: React.FC = props => {
                     {
                       type: 'textarea',
                       name: 'expectation',
-                      placeholder: 'คาดหวังอะไรจากค่ายนี้บ้าง',
+                      title: 'คาดหวังอะไรจากค่ายนี้บ้าง',
                       isRequired: true,
                     },
                   ],
@@ -549,24 +569,14 @@ const Step1Feature: React.FC = props => {
                 </Link>
               </Box>
               <Box px={2}>
-                <Popover isOpen={popover} onClose={() => setPopover(false)}>
-                  <PopoverTrigger>
-                    <Button
-                      mt={4}
-                      variantColor='blue'
-                      isLoading={formik.isSubmitting}
-                      type='submit'
-                      rightIcon='chevron-right'>
-                      ขั้นตอนถัดไป
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent zIndex={4} bg='tomato' color='white'>
-                    <PopoverHeader>ขั้นตอนนี้ยังไม่เสร็จ</PopoverHeader>
-                    <PopoverArrow />
-                    <PopoverCloseButton />
-                    <PopoverBody>คุณยังไม่ได้อัพโหลดรูปภาพประจำตัว</PopoverBody>
-                  </PopoverContent>
-                </Popover>
+                <Button
+                  mt={4}
+                  className='primary'
+                  isLoading={formik.isSubmitting}
+                  type='submit'
+                  rightIcon='chevron-right'>
+                  ขั้นตอนถัดไป
+                </Button>
               </Box>
             </Flex>
           </Box>

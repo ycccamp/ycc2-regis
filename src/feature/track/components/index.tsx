@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import Router from 'next/router'
 
-import { Button, Flex, Heading, useToast } from '@chakra-ui/core'
+import { Button, Flex, useToast } from '@chakra-ui/core'
 
 import 'firebase/analytics'
 import 'firebase/firestore'
@@ -66,19 +66,17 @@ const TrackFeature: React.FC = props => {
     <Flex flexWrap='wrap'>
       {Object.entries(tracks).map(track => (
         <Flex
-          width={1 / 3}
+          width={['100%', '100%', 1 / 2, 1 / 3]}
           p={4}
           flexWrap='wrap'
           justifyContent='center'
           key={`track-${track[0]}`}>
-          <Heading size='md' width='100%' textAlign='center' pb={4}>
-            Image for {track[1].title}
-          </Heading>
           <Button
+            className='primary'
             onClick={() => trackHandler(track[0])}
             isLoading={activeClick === track[0]}
             isDisabled={activeClick !== ''}>
-            สมัครเป็น {track[1].title}
+            สมัครสาขา {track[1].title}
           </Button>
         </Flex>
       ))}

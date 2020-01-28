@@ -1,16 +1,19 @@
 export interface IFormBuilderProps {
   form: (
     | {
-        type: 'text' | 'textarea' | 'date'
+        type: 'text' | 'textarea' | 'date' | 'email' | 'upload'
         name: string
-        placeholder: string
+        title: string
+        placeholder?: string
         isRequired: boolean
         props?: any
+        maxLength?: number
       }
     | {
         type: 'select'
         name: string
-        placeholder: string
+        title: string
+        placeholder?: string
         isRequired: boolean
         props?: any
         options: {

@@ -17,6 +17,8 @@ import Auth from './auth'
 import Global from './global'
 import Helmet from './helmet'
 
+import '../main.scss'
+
 import { IProps } from '../@types/IProps'
 
 const AppComponent: React.FC<IProps> = props => {
@@ -37,14 +39,19 @@ const AppComponent: React.FC<IProps> = props => {
       <Global />
       <Helmet />
       <Box as='main' height='100%' overflow='auto'>
-        <Flex justifyContent='center' py={10}>
+        <Flex
+          justifyContent='center'
+          py={10}
+          alignItems='center'
+          minHeight='100vh'>
           <Box
+            className='form-wrapper'
             width={[22 / 24, 20 / 24, 8 / 10, 6 / 10]}
             borderRadius={4}
             p={10}
             bg='white'>
             <Heading size='lg' pb={5}>
-              ลงทะเบียนเข้าค่าย Young Creator's Camp
+              สมัครเข้าค่าย Young Creator's Camp
             </Heading>
             <Divider />
             <Box pt={5} />

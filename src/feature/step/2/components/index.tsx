@@ -145,13 +145,15 @@ const Step2Feature: React.FC = props => {
                   {
                     type: 'text',
                     name: 'parentFirstName',
-                    placeholder: 'ชื่อผู้ปกครอง',
+                    title: 'ชื่อผู้ปกครอง',
+                    placeholder: 'ภวัต',
                     isRequired: true,
                   },
                   {
                     type: 'text',
                     name: 'parentLastName',
-                    placeholder: 'นามสกุล',
+                    title: 'นามสกุล',
+                    placeholder: 'นาดี',
                     isRequired: true,
                   },
                 ],
@@ -159,14 +161,22 @@ const Step2Feature: React.FC = props => {
                   {
                     type: 'text',
                     name: 'parentRelation',
-                    placeholder: 'ความเกี่ยวข้อง',
+                    title: 'ความเกี่ยวข้อง',
+                    placeholder: 'ลุง , บิดา',
                     isRequired: true,
                   },
                   {
                     type: 'text',
-                    name: 'parentPhone',
-                    placeholder: 'เบอร์โทรศัพท์',
+                    name: 'phone',
+                    title: 'เบอร์โทรศัพท์',
+                    placeholder: '08XXXXXXXX (10 ตัว)',
                     isRequired: true,
+                    props: {
+                      maxLength: 10,
+                      pattern: '[0-9]{10}',
+                      title:
+                        'เบอร์โทรศัพท์ต้องกรอกให้ครบทั้งหมด 10 หลักโดยไม่มีขีด',
+                    },
                   },
                 ],
               ],
@@ -188,7 +198,7 @@ const Step2Feature: React.FC = props => {
             <Box px={2}>
               <Button
                 mt={4}
-                variantColor='blue'
+                className='primary'
                 isLoading={formik.isSubmitting}
                 isDisabled={isBackButtonLoad}
                 type='submit'

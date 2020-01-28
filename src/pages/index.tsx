@@ -80,7 +80,7 @@ const IndexPage: NextPage = props => {
     <Flex justifyContent='center' flexWrap='wrap'>
       <Spinner size='lg' />
       <Text width='100%' textAlign='center' pt={4}>
-        กำลังโหลดข้อมูลล่าสุดที่มี
+        กำลังดึงข้อมูลล่าสุดที่มี
       </Text>
     </Flex>
   )

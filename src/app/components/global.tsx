@@ -12,12 +12,14 @@ const GlobalComponent: React.FC = props => {
           height: 100%;
         }
 
-        body {
-          background: linear-gradient(
-            45deg,
-            rgba(69, 20, 90, 1) 0%,
-            rgba(255, 83, 0, 1) 100%
-          );
+        html {
+          background-image: radial-gradient(
+              rgba(64, 147, 164, 0.5) 10px,
+              transparent 10px
+            ),
+            radial-gradient(rgba(232, 100, 119, 0.5) 10px, transparent 10px);
+          background-size: 300px 300px;
+          background-position: 0px 0px, 150px 150px;
         }
       `}
     />

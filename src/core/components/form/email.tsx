@@ -7,10 +7,10 @@ import {
   Input,
 } from '@chakra-ui/core'
 
-import { IFormTextareaProps } from '../../@types/IFormTextareaProps'
+import { IFormInputProps } from '../../@types/IFormInputProps'
 
-const FormTextarea: React.FC<IFormTextareaProps> = props => {
-  const { name, formik, title, placeholder, isRequired } = props
+const FormInput: React.FC<IFormInputProps> = props => {
+  const { name, formik, placeholder, title, isRequired } = props
 
   return (
     <FormControl
@@ -21,15 +21,14 @@ const FormTextarea: React.FC<IFormTextareaProps> = props => {
       <FormLabel htmlFor={name}>{title}</FormLabel>
       <Input
         id={name}
-        as='textarea'
-        height={100}
-        placeholder={placeholder}
         onChange={formik.handleChange}
         value={formik.values[name]}
+        placeholder={placeholder}
+        type='email'
       />
       <FormErrorMessage>{formik.errors[name]}</FormErrorMessage>
     </FormControl>
   )
 }
 
-export default FormTextarea
+export default FormInput

@@ -18,7 +18,7 @@ const Helmet: React.FC = props => {
           rel: 'apple-touch-icon',
         },
         {
-          href: `https://fonts.googleapis.com/css?family=Prompt|Sarabun&display=swap`,
+          href: `https://fonts.googleapis.com/css?family=Prompt:500|Sarabun:300|Nunito:400&display=swap`,
           rel: 'stylesheet',
         },
       ]}

@@ -42,7 +42,8 @@ const Step3Feature: React.FC = props => {
         {
           type: 'textarea',
           name: question[0],
-          placeholder: `${i + 1}. ${question[1]}`,
+          title: `${i + 1}. ${question[1]}`,
+          placeholder: 'พิมพ์คำตอบลงในช่องนี้',
           isRequired: true,
         },
       ]
@@ -160,7 +161,7 @@ const Step3Feature: React.FC = props => {
             <Box px={2}>
               <Button
                 mt={4}
-                variantColor='blue'
+                className='primary'
                 isLoading={formik.isSubmitting}
                 isDisabled={isBackButtonLoad}
                 type='submit'
