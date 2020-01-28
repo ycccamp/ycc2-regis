@@ -196,8 +196,9 @@ const Step4Feature: React.FC = props => {
               .firestore()
               .collection('registration')
               .doc(user.uid)
-              .set({
+              .update({
                 step: userData.step > 5 ? userData.step : 5,
+                timestamp: new Date().getTime(),
               })
 
             Router.push('/verify/')
@@ -316,7 +317,11 @@ const Step4Feature: React.FC = props => {
                 <Box px={2} marginY={8}>
                   <Input
                     name={question[0].name}
-                    title={question[0].title}
+                    title={
+                      <div
+                        dangerouslySetInnerHTML={{ __html: question[0].title }}
+                      />
+                    }
                     placeholder='พิมพ์คำตอบลงในช่องนี้'
                     formik={formik}
                     isRequired

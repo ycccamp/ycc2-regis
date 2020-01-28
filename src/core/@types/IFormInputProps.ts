@@ -1,6 +1,8 @@
+import { ReactNode } from 'react'
+
 export interface IFormInputProps {
   name: string
-  title: string
+  title: ReactNode
   placeholder?: string
   isRequired?: boolean
   formik: any

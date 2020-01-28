@@ -52,8 +52,6 @@ const VerifyFeature: React.FC = props => {
       .collection('registration')
       .doc(user.uid)
 
-    console.log('get')
-
     const basicData = await userRef.get()
     const personalData = await userRef
       .collection('forms')
@@ -75,8 +73,6 @@ const VerifyFeature: React.FC = props => {
       .collection('forms')
       .doc('avatar')
       .get()
-
-    console.log('done')
 
     setForm({
       user,
