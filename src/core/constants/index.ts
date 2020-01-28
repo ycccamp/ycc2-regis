@@ -51,7 +51,7 @@ export const grades = {
 export const genders = {
   male: 'ชาย',
   female: 'หญิง',
-  other: `เควียร์ / non-binary`,
+  other: `LGBTQIA+`,
   none: 'ไม่ระบุ',
 }
 
