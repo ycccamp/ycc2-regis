@@ -80,7 +80,7 @@ const PersonalField: React.FC<IPersonalFieldProps> = props => {
             <b>อีเมล</b> {data.email}
           </Text>
           <Text p={2}>
-            <b>Social Media</b> {data.socialMedia}
+            <b>Facebook</b> {data.facebook}
           </Text>
         </Flex>
       </Box>
