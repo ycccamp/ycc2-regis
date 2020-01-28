@@ -23,7 +23,7 @@ const FormInput: React.FC<IFormInputProps> = props => {
         id={name}
         onChange={formik.handleChange}
         value={formik.values[name]}
-        placeholder={placeholder ? placeholder : title}
+        placeholder={placeholder}
         type='email'
       />
       <FormErrorMessage>{formik.errors[name]}</FormErrorMessage>
