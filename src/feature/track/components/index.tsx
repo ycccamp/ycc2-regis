@@ -2,7 +2,14 @@ import React, { useState } from 'react'
 
 import Router from 'next/router'
 
-import { Button, Flex, useToast } from '@chakra-ui/core'
+import {
+  AspectRatioBox,
+  Box,
+  Button,
+  Flex,
+  Image,
+  useToast,
+} from '@chakra-ui/core'
 
 import 'firebase/analytics'
 import 'firebase/firestore'
@@ -64,19 +71,28 @@ const TrackFeature: React.FC = props => {
 
   return (
     <Flex flexWrap='wrap'>
-      {Object.entries(tracks).map(track => (
+      {Object.entries(tracks).map(([key, value]) => (
         <Flex
           width={['100%', '100%', 1 / 2, 1 / 3]}
           p={4}
           flexWrap='wrap'
           justifyContent='center'
-          key={`track-${track[0]}`}>
+          key={`track-${key}`}>
+          <Box width='100%' pb={4}>
+            <AspectRatioBox ratio={3 / 4} borderRadius={20} overflow='hidden'>
+              <Image
+                src={`/static/track-${key}.png`}
+                alt={value.title}
+                objectFit='cover'
+              />
+            </AspectRatioBox>
+          </Box>
           <Button
             className='primary'
-            onClick={() => trackHandler(track[0])}
-            isLoading={activeClick === track[0]}
+            onClick={() => trackHandler(key)}
+            isLoading={activeClick === key}
             isDisabled={activeClick !== ''}>
-            สมัครสาขา {track[1].title}
+            สมัครสาขา {value.title}
           </Button>
         </Flex>
       ))}
