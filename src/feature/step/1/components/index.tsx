@@ -9,13 +9,6 @@ import {
   Button,
   Flex,
   Heading,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
   Spinner,
   Text,
   useToast,
@@ -66,7 +59,6 @@ const Step1Feature: React.FC = props => {
   const toast = useToast()
 
   const [isFormLoad, setIsFormLoad] = useState<boolean>(true)
-  const [popover, setPopover] = useState<boolean>(false)
 
   const [avatarUrl, setAvatarUrl] = useState<string>('')
   const [isAvatarUploading, setIsAvatarUploading] = useState<boolean>(false)
@@ -224,7 +216,13 @@ const Step1Feature: React.FC = props => {
           })
         }
       } else {
-        setPopover(true)
+        toast({
+          title: 'ขั้นตอนนี้ยังไม่สำเร็จ',
+          description: 'คุณยังไม่ได้อัพโหลดรูปภาพประจำตัว',
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+        })
         setIsFormLoad(false)
       }
     },
@@ -568,24 +566,14 @@ const Step1Feature: React.FC = props => {
                 </Link>
               </Box>
               <Box px={2}>
-                <Popover isOpen={popover} onClose={() => setPopover(false)}>
-                  <PopoverTrigger>
-                    <Button
-                      mt={4}
-                      className='primary'
-                      isLoading={formik.isSubmitting}
-                      type='submit'
-                      rightIcon='chevron-right'>
-                      ขั้นตอนถัดไป
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent zIndex={4} bg='tomato' color='white'>
-                    <PopoverHeader>ขั้นตอนนี้ยังไม่เสร็จ</PopoverHeader>
-                    <PopoverArrow />
-                    <PopoverCloseButton />
-                    <PopoverBody>คุณยังไม่ได้อัพโหลดรูปภาพประจำตัว</PopoverBody>
-                  </PopoverContent>
-                </Popover>
+                <Button
+                  mt={4}
+                  className='primary'
+                  isLoading={formik.isSubmitting}
+                  type='submit'
+                  rightIcon='chevron-right'>
+                  ขั้นตอนถัดไป
+                </Button>
               </Box>
             </Flex>
           </Box>

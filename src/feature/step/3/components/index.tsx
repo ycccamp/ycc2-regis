@@ -42,7 +42,7 @@ const Step3Feature: React.FC = props => {
         {
           type: 'textarea',
           name: question[0],
-          placeholder: `${i + 1}. ${question[1]}`,
+          title: `${i + 1}. ${question[1]}`,
           isRequired: true,
         },
       ]

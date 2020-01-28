@@ -345,7 +345,7 @@ const Step4Feature: React.FC = props => {
                           `${Math.floor(uploadProgress)} %`
                         ) : (
                           <Flex>
-                            Upload รูป{' '}
+                            แนบรูป{' '}
                             <Text pl={1} color='red.500'>
                               *
                             </Text>
@@ -369,7 +369,7 @@ const Step4Feature: React.FC = props => {
               )
             }
           })}
-          <Button justifyContent='center' flexWrap='wrap'>
+          <Flex justifyContent='center' flexWrap='wrap'>
             <Box px={2}>
               <Link href='/step/3'>
                 <Button
@@ -393,7 +393,7 @@ const Step4Feature: React.FC = props => {
                 ขั้นตอนถัดไป
               </Button>
             </Box>
-          </Button>
+          </Flex>
         </Box>
       )}
     </React.Fragment>
