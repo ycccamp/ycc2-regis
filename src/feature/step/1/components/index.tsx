@@ -253,7 +253,7 @@ const Step1Feature: React.FC = props => {
               'temporaryData__timestamp'
             )
 
-            if (timestamp < +localTimestamp) {
+            if (timestamp > +localTimestamp) {
               setForm((prev: any) => ({ ...prev, ...data }))
             }
           }
