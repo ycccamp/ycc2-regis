@@ -34,7 +34,7 @@ const Step4Feature: React.FC = props => {
   const [isFormLoad, setIsFormLoad] = useState(true)
   const [isBackButtonLoad, setIsBackButtonLoad] = useState(false)
 
-  const [avatarUrl, setAvatarUrl] = useState<string>('')
+  const [uploadUrl, setUploadUrl] = useState<string>('')
   const [isAvatarUploading, setIsAvatarUploading] = useState<boolean>(false)
   const [uploadProgress, setUploadProgress] = useState<number>(0)
 
@@ -115,7 +115,7 @@ const Step4Feature: React.FC = props => {
         },
         async () => {
           task.snapshot.ref.getDownloadURL().then(url => {
-            setAvatarUrl(url)
+            setUploadUrl(url)
 
             toast({
               title: 'อัพโหลดเสร็จสิ้น',
@@ -152,7 +152,7 @@ const Step4Feature: React.FC = props => {
             .child(docData.file)
             .getDownloadURL()
             .then((url: any) => {
-              setAvatarUrl(url)
+              setUploadUrl(url)
             })
         }
       })
@@ -322,40 +322,44 @@ const Step4Feature: React.FC = props => {
                     isRequired
                   />
                   <Flex justifyContent='center' pt={2}>
-                    {avatarUrl ? (
-                      <Flex justifyContent='center'>
-                        <Avatar size='2xl' src={avatarUrl} />
+                    <Box>
+                      {uploadUrl ? (
+                        <Flex justifyContent='center'>
+                          <Avatar size='2xl' src={uploadUrl} />
+                        </Flex>
+                      ) : null}
+                      <input
+                        accept='image/*'
+                        style={{ display: 'none' }}
+                        id='avatarUpload'
+                        name='avatarUpload'
+                        type='file'
+                        onChange={e =>
+                          e.target.files !== null
+                            ? uploadHandler(e.target.files, 'image')
+                            : null
+                        }
+                      />
+                      <Flex justifyContent='center' pt={2}>
+                        <label htmlFor='avatarUpload'>
+                          <Button
+                            as='span'
+                            size='sm'
+                            isDisabled={isAvatarUploading}>
+                            {isAvatarUploading ? (
+                              `${Math.floor(uploadProgress)} %`
+                            ) : (
+                              <Flex>
+                                แนบรูป{' '}
+                                <Text pl={1} color='red.500'>
+                                  *
+                                </Text>
+                              </Flex>
+                            )}
+                          </Button>
+                        </label>
                       </Flex>
-                    ) : null}
-                    <input
-                      accept='image/*'
-                      style={{ display: 'none' }}
-                      id='avatarUpload'
-                      name='avatarUpload'
-                      type='file'
-                      onChange={e =>
-                        e.target.files !== null
-                          ? uploadHandler(e.target.files, 'image')
-                          : null
-                      }
-                    />
-                    <label htmlFor='avatarUpload'>
-                      <Button
-                        as='span'
-                        size='sm'
-                        isDisabled={isAvatarUploading}>
-                        {isAvatarUploading ? (
-                          `${Math.floor(uploadProgress)} %`
-                        ) : (
-                          <Flex>
-                            แนบรูป{' '}
-                            <Text pl={1} color='red.500'>
-                              *
-                            </Text>
-                          </Flex>
-                        )}
-                      </Button>
-                    </label>
+                    </Box>
                   </Flex>
                 </Box>
               )

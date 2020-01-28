@@ -76,7 +76,7 @@ const TrackFeature: React.FC = props => {
             onClick={() => trackHandler(track[0])}
             isLoading={activeClick === track[0]}
             isDisabled={activeClick !== ''}>
-            สมัครเป็น {track[1].title}
+            สมัครสาขา {track[1].title}
           </Button>
         </Flex>
       ))}

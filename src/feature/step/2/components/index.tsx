@@ -167,12 +167,15 @@ const Step2Feature: React.FC = props => {
                   },
                   {
                     type: 'text',
-                    name: 'parentPhone',
+                    name: 'phone',
                     title: 'เบอร์โทรศัพท์',
-                    placeholder: '08XXXXXXXX',
+                    placeholder: '08XXXXXXXX (10 ตัว)',
                     isRequired: true,
                     props: {
                       maxLength: 10,
+                      pattern: '[0-9]{10}',
+                      title:
+                        'เบอร์โทรศัพท์ต้องกรอกให้ครบทั้งหมด 10 หลักโดยไม่มีขีด',
                     },
                   },
                 ],
