@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import Router from 'next/router'
 
-import { Button, Flex, Heading, useToast } from '@chakra-ui/core'
+import { Button, Flex, useToast } from '@chakra-ui/core'
 
 import 'firebase/analytics'
 import 'firebase/firestore'

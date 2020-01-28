@@ -43,6 +43,7 @@ const Step3Feature: React.FC = props => {
           type: 'textarea',
           name: question[0],
           title: `${i + 1}. ${question[1]}`,
+          placeholder: 'พิมพ์คำตอบลงในช่องนี้',
           isRequired: true,
         },
       ]

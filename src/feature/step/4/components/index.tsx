@@ -22,6 +22,7 @@ import { firebase } from '../../../../core/services/firebase'
 import { useAuth } from '../../../../core/services/useAuth'
 
 import Input from '../../../../core/components/form/input'
+import Textarea from '../../../../core/components/form/textarea'
 import FormBuilder from '../../../../core/components/formbuilder'
 
 import { tracks } from '../../../../core/constants'
@@ -54,7 +55,8 @@ const Step4Feature: React.FC = props => {
       {
         type: 'textarea',
         name: question[0],
-        placeholder: `${i + 1}. ${question[1]}`,
+        title: `${i + 1}. ${question[1]}`,
+        placeholder: 'พิมพ์คำตอบลงในช่องนี้',
         isRequired: true,
       },
     ]
@@ -314,7 +316,8 @@ const Step4Feature: React.FC = props => {
                 <Box px={2} marginY={8}>
                   <Input
                     name={question[0].name}
-                    title={question[0].placeholder}
+                    title={question[0].title}
+                    placeholder='พิมพ์คำตอบลงในช่องนี้'
                     formik={formik}
                     isRequired
                   />
@@ -359,9 +362,10 @@ const Step4Feature: React.FC = props => {
             } else {
               return (
                 <Box px={2} marginY={8}>
-                  <Input
+                  <Textarea
                     name={question[0].name}
-                    title={question[0].placeholder}
+                    title={question[0].title}
+                    placeholder={question[0].placeholder}
                     formik={formik}
                     isRequired
                   />

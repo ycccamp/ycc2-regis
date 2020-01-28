@@ -10,7 +10,7 @@ import {
 import { IFormTextareaProps } from '../../@types/IFormTextareaProps'
 
 const FormTextarea: React.FC<IFormTextareaProps> = props => {
-  const { name, formik, title, isRequired } = props
+  const { name, formik, title, placeholder, isRequired } = props
 
   return (
     <FormControl
@@ -23,6 +23,7 @@ const FormTextarea: React.FC<IFormTextareaProps> = props => {
         id={name}
         as='textarea'
         height={100}
+        placeholder={placeholder}
         onChange={formik.handleChange}
         value={formik.values[name]}
       />
