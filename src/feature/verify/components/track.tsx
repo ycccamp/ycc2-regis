@@ -17,7 +17,7 @@ const TrackField: React.FC<ITrackFieldProps> = props => {
           <Flex flexWrap='wrap' key={`general-field-${key}`}>
             <Text p={2}>
               <b>
-                {i + 1}. {value}
+                {i + 1}. <div dangerouslySetInnerHTML={{ __html: value }} />
               </b>
               <br />
               {data[key]}
