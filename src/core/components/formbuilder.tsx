@@ -83,7 +83,7 @@ const FormBuilder: React.FC<IFormBuilderProps> = props => {
                       placeholder={item.placeholder}
                       formik={formik}
                       isRequired={item.isRequired}
-                      {...item.props}
+                      extra={item.props}
                     />
                   ) : item.type === 'email' ? (
                     <Email

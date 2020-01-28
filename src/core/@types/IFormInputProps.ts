@@ -5,4 +5,5 @@ export interface IFormInputProps {
   isRequired?: boolean
   formik: any
   maxLength?: number
+  extra?: any
 }
