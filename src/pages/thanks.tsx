@@ -10,6 +10,9 @@ const ThanksPage: NextPage = props => {
       <Heading size='lg' textAlign='center'>
         ขอบคุณที่สมัครเข้าร่วมค่าย Young Creator's Camp ค่ะ! 💖
       </Heading>
+      <Heading size='md' textAlign='center'>
+      ประกาศผลรับสมัครวันที่ วันที่ 7 มีนา 2563 เวลา 21.00 น.
+      </Heading>
       <Flex justifyContent='center' pt={6}>
         <Link href='https://ycc.in.th' _hover={{ textDecoration: 'none' }}>
           <Button>กลับสู่เว็บไซต์หลัก</Button>
