@@ -6,6 +6,7 @@ import {
   bloodGroups,
   genders,
   grades,
+  provinces,
   religions,
   shirtSizes,
 } from '../../../core/constants'
@@ -24,15 +25,15 @@ const PersonalField: React.FC<IPersonalFieldProps> = props => {
       <Box py={4}>
         <Flex flexWrap='wrap'>
           <Text p={2}>
-            <b>ชื่อ</b> {data.firstname}
+            <b>ชื่อ</b> {data.firstname} ({data.firstnameEn})
           </Text>
           <Text p={2}>
-            <b>นามสกุล</b> {data.lastname}
+            <b>นามสกุล</b> {data.lastname} ({data.lastnameEn})
           </Text>
         </Flex>
         <Flex flexWrap='wrap'>
           <Text p={2}>
-            <b>ชื่อเล่น</b> {data.nickname}
+            <b>ชื่อเล่น</b> {data.nickname} ({data.nicknameEn})
           </Text>
           <Text p={2}>
             <b>วันเกิด</b> {data.birthdate}
@@ -106,7 +107,13 @@ const PersonalField: React.FC<IPersonalFieldProps> = props => {
           <Text p={2}>
             <b>ที่อยู่</b>
             <br />
-            {data.address}
+            {data.address} {data.subdistrict} {data.district}{' '}
+            {
+              Object.entries(provinces).filter(
+                o => data && o[0] === data.province
+              )[0][1]
+            }{' '}
+            {data.postcode}
           </Text>
         </Flex>
       </Box>
