@@ -74,7 +74,7 @@ const IndexPage: NextPage = props => {
     const instance = firebase()
 
     instance.analytics().logEvent('init')
-  })
+  }, [])
 
   return (
     <Flex justifyContent='center' flexWrap='wrap'>
