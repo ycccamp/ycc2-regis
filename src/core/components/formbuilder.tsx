@@ -30,19 +30,19 @@ const FormBuilder: React.FC<IFormBuilderProps> = props => {
     switch (asPath) {
       case '/step/1/':
         localSave = debounce(props.formik.values, 1)
-        break;
+        break
 
       case '/step/2/':
         localSave = debounce(props.formik.values, 2)
-        break;
+        break
 
       case '/step/3/':
         localSave = debounce(props.formik.values, 3)
-        break;
+        break
 
       case '/step/4/':
         localSave = debounce(props.formik.values, 4)
-        break;
+        break
     }
 
     return () => clearInterval(localSave)
