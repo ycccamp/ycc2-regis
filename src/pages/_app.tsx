@@ -18,6 +18,7 @@ class NextApp extends App<IAppProps> {
     return (
       <React.Fragment>
         <Head>
+          <title>Young Creator's Camp</title>
           {`<script>
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
