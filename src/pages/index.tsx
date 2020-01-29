@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { NextPage } from 'next'
 import Router from 'next/router'
 
-import { Flex, Spinner, Text, useTheme } from '@chakra-ui/core'
+import { Flex, Spinner, Text } from '@chakra-ui/core'
 
 import 'firebase/analytics'
 import { User } from 'firebase/app'
@@ -14,8 +14,12 @@ import { useAuth } from '../core/services/useAuth'
 const IndexPage: NextPage = props => {
   const user = useAuth()
 
+  const [loadMsg, setLoadMsg] = useState<string>('กำลังดึงข้อมูลล่าสุดที่มี')
+
   const userHandler = async (user: User) => {
     const instance = firebase()
+
+    setLoadMsg('ดูแปปว่าสมัครถึงไหนแล้ว')
 
     // Step 1: Get user snapshot
     const userDoc = await instance
@@ -24,8 +28,12 @@ const IndexPage: NextPage = props => {
       .doc(user.uid)
       .get()
 
+    setLoadMsg('กำลังดึงข้อมูลล่าสุดที่มี...')
+
     // Step 2: Check is user choosen track
     if (!userDoc.exists) {
+      setLoadMsg('พึ่งเข้ามาครั้งแรกแน่ๆ เลย...เตรียมตัวแปป')
+
       await instance
         .firestore()
         .collection('registration')
@@ -33,6 +41,8 @@ const IndexPage: NextPage = props => {
         .set({
           step: 0,
         })
+
+      setLoadMsg('ได้ล่ะ เตรียมคีย์บอร์ดให้พร้อมเลย')
 
       return Router.push('/track/')
     }
@@ -42,20 +52,28 @@ const IndexPage: NextPage = props => {
 
     if (userData) {
       if (userData.isLocked) {
+        setLoadMsg('ดูเหมือนว่ายืนยันการสมัครแล้วหนิ...แปปนะ')
+
         return Router.push('/thanks/')
       }
 
       // Check if user at verify step
       if (userData.step === 5) {
+        setLoadMsg('กรอกข้อมูลครบแล้วหนิ แต่ยังไม่ได้ยืนยันสมัครเลย...')
+
         return Router.push('/verify/')
       }
 
       // Check if user not choose track
       if (userData.step === 0) {
+        setLoadMsg('ฮั่นแน่! ยังไม่ได้เลือกสาขาใช่มั้ยเรา...')
+
         return Router.push('/track/')
       }
       // Check if user at some step
       else {
+        setLoadMsg('ดูเหมือนยังสมัครไม่เสร็จ พาไปหน้าที่ค้างไว้ให้...')
+
         return Router.push(`/step/${userData.step}/`)
       }
     }
@@ -80,7 +98,7 @@ const IndexPage: NextPage = props => {
     <Flex justifyContent='center' flexWrap='wrap'>
       <Spinner size='lg' />
       <Text width='100%' textAlign='center' pt={4}>
-        กำลังดึงข้อมูลล่าสุดที่มี
+        {loadMsg}
       </Text>
     </Flex>
   )
