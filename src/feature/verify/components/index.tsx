@@ -22,6 +22,7 @@ import {
 import 'firebase/analytics'
 import { User } from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/performance'
 import { firebase } from '../../../core/services/firebase'
 import { useAuth } from '../../../core/services/useAuth'
 
@@ -91,6 +92,9 @@ const VerifyFeature: React.FC = props => {
     if (user !== null) {
       const instance = firebase()
 
+      const trace = instance.performance().trace('verify-onSubmit')
+      trace.start()
+
       try {
         await instance
           .firestore()
@@ -104,8 +108,14 @@ const VerifyFeature: React.FC = props => {
           track: form?.basic?.track,
         })
 
+        trace.incrementMetric('success', 1)
+        trace.stop()
+
         Router.push('/thanks')
       } catch {
+        trace.incrementMetric('success', 0)
+        trace.stop()
+
         setIsConfirmButtonLoad(false)
         onClose()
       }

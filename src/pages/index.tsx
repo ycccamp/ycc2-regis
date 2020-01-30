@@ -8,6 +8,7 @@ import { Flex, Spinner, Text } from '@chakra-ui/core'
 import 'firebase/analytics'
 import { User } from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/performance'
 import { firebase } from '../core/services/firebase'
 import { useAuth } from '../core/services/useAuth'
 
@@ -18,6 +19,9 @@ const IndexPage: NextPage = props => {
 
   const userHandler = async (user: User) => {
     const instance = firebase()
+
+    const trace = instance.performance().trace('init-checkLastStage')
+    trace.start()
 
     setLoadMsg('ดูแปปว่าสมัครถึงไหนแล้ว')
 
@@ -42,6 +46,9 @@ const IndexPage: NextPage = props => {
           step: 0,
         })
 
+      trace.incrementMetric('step', 0)
+      trace.stop()
+
       setLoadMsg('ได้ล่ะ เตรียมคีย์บอร์ดให้พร้อมเลย')
 
       return Router.push('/track/')
@@ -54,12 +61,18 @@ const IndexPage: NextPage = props => {
       if (userData.isLocked) {
         setLoadMsg('ดูเหมือนว่ายืนยันการสมัครแล้วหนิ...แปปนะ')
 
+        trace.incrementMetric('step', -1)
+        trace.stop()
+
         return Router.push('/thanks/')
       }
 
       // Check if user at verify step
       if (userData.step === 5) {
         setLoadMsg('กรอกข้อมูลครบแล้วหนิ แต่ยังไม่ได้ยืนยันสมัครเลย...')
+
+        trace.incrementMetric('step', 5)
+        trace.stop()
 
         return Router.push('/verify/')
       }
@@ -68,11 +81,17 @@ const IndexPage: NextPage = props => {
       if (userData.step === 0) {
         setLoadMsg('ฮั่นแน่! ยังไม่ได้เลือกสาขาใช่มั้ยเรา...')
 
+        trace.incrementMetric('step', 0)
+        trace.stop()
+
         return Router.push('/track/')
       }
       // Check if user at some step
       else {
         setLoadMsg('ดูเหมือนยังสมัครไม่เสร็จ พาไปหน้าที่ค้างไว้ให้...')
+
+        trace.incrementMetric('step', userData.step)
+        trace.stop()
 
         return Router.push(`/step/${userData.step}/`)
       }
@@ -92,6 +111,7 @@ const IndexPage: NextPage = props => {
     const instance = firebase()
 
     instance.analytics().logEvent('init')
+    instance.performance()
   }, [])
 
   return (

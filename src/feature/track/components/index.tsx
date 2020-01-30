@@ -13,6 +13,7 @@ import {
 
 import 'firebase/analytics'
 import 'firebase/firestore'
+import 'firebase/performance'
 import { firebase } from '../../../core/services/firebase'
 import { useAuth } from '../../../core/services/useAuth'
 
@@ -28,6 +29,9 @@ const TrackFeature: React.FC = props => {
 
     if (user !== null) {
       const instance = firebase()
+
+      const trace = instance.performance().trace('track-onSubmit')
+      trace.start()
 
       const userInstance = await instance
         .firestore()
@@ -47,6 +51,9 @@ const TrackFeature: React.FC = props => {
             isLocked: false,
           })
           .then(async () => {
+            trace.incrementMetric('success', 1)
+            trace.stop()
+
             instance.analytics().logEvent('selectTrack', {
               track,
             })
@@ -55,6 +62,9 @@ const TrackFeature: React.FC = props => {
             await Router.push('/step/1/')
           })
           .catch(() => {
+            trace.incrementMetric('success', 0)
+            trace.stop()
+
             useToast()({
               title: 'เกิดข้อผิดพลาด',
               description:

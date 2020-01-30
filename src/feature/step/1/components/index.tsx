@@ -17,6 +17,7 @@ import {
 import { useFormik } from 'formik'
 
 import 'firebase/firestore'
+import 'firebase/performance'
 import 'firebase/storage'
 import { firebase } from '../../../../core/services/firebase'
 import { useAuth } from '../../../../core/services/useAuth'
@@ -82,6 +83,9 @@ const Step1Feature: React.FC = props => {
     const file = fileList[0]
     const instance = firebase()
 
+    const trace = instance.performance().trace('step1-avatarUploadHandler')
+    trace.start()
+
     if (user !== null) {
       const task = instance
         .storage()
@@ -96,6 +100,9 @@ const Step1Feature: React.FC = props => {
           setUploadProgress((bytesTransferred / totalBytes) * 100)
         },
         () => {
+          trace.incrementMetric('success', 0)
+          trace.stop()
+
           toast({
             title: 'เกิดข้อผิดพลาด',
             description: 'ไม่สามารถอัพโหลดรูปภาพได้สำเร็จ',
@@ -115,6 +122,9 @@ const Step1Feature: React.FC = props => {
             .set({
               fileName: file.name,
             })
+
+          trace.incrementMetric('success', 1)
+          trace.stop()
 
           task.snapshot.ref.getDownloadURL().then(url => {
             setAvatarUrl(url)
@@ -173,6 +183,9 @@ const Step1Feature: React.FC = props => {
       if (avatarUrl !== '') {
         const instance = firebase()
 
+        const trace = instance.performance().trace('step1-onSubmit')
+        trace.start()
+
         try {
           if (user !== null) {
             await instance
@@ -203,10 +216,16 @@ const Step1Feature: React.FC = props => {
                   timestamp: new Date().getTime(),
                 })
 
+              trace.incrementMetric('success', 1)
+              trace.stop()
+
               Router.push('/step/2/')
             }
           }
         } catch {
+          trace.incrementMetric('success', 0)
+          trace.stop()
+
           toast({
             title: 'เกิดข้อผิดพลาด',
             description: 'ไม่สามารถบันทึกข้อมูลได้สำเร็จ กรุณาลองใหม่อีกครั้ง',

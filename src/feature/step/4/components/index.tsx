@@ -17,13 +17,13 @@ import {
 import { useFormik } from 'formik'
 
 import 'firebase/firestore'
+import 'firebase/performance'
 import 'firebase/storage'
 import { firebase } from '../../../../core/services/firebase'
 import { useAuth } from '../../../../core/services/useAuth'
 
 import Input from '../../../../core/components/form/input'
 import Textarea from '../../../../core/components/form/textarea'
-import FormBuilder from '../../../../core/components/formbuilder'
 
 import { tracks } from '../../../../core/constants'
 
@@ -173,6 +173,9 @@ const Step4Feature: React.FC = props => {
     onSubmit: async (values, actions) => {
       const instance = firebase()
 
+      const trace = instance.performance().trace('step4-onSubmit')
+      trace.start()
+
       try {
         if (user !== null) {
           await instance
@@ -201,10 +204,16 @@ const Step4Feature: React.FC = props => {
                 timestamp: new Date().getTime(),
               })
 
+            trace.incrementMetric('success', 1)
+            trace.stop()
+
             Router.push('/verify/')
           }
         }
       } catch {
+        trace.incrementMetric('success', 0)
+        trace.stop()
+
         useToast()({
           title: 'เกิดข้อผิดพลาด',
           description: 'ไม่สามารถบันทึกข้อมูลได้สำเร็จ กรุณาลองใหม่อีกครั้ง',

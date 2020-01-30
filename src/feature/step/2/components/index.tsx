@@ -8,6 +8,7 @@ import { Box, Button, Flex, Heading, Spinner, useToast } from '@chakra-ui/core'
 import { useFormik } from 'formik'
 
 import 'firebase/firestore'
+import 'firebase/performance'
 import { firebase } from '../../../../core/services/firebase'
 import { useAuth } from '../../../../core/services/useAuth'
 
@@ -49,6 +50,9 @@ const Step2Feature: React.FC = props => {
     onSubmit: async (values, actions) => {
       const instance = firebase()
 
+      const trace = instance.performance().trace('step2-onSubmit')
+      trace.start()
+
       try {
         if (user !== null) {
           await instance
@@ -77,10 +81,16 @@ const Step2Feature: React.FC = props => {
                 timestamp: new Date().getTime(),
               })
 
+            trace.incrementMetric('success', 1)
+            trace.stop()
+
             Router.push('/step/3/')
           }
         }
       } catch {
+        trace.incrementMetric('success', 0)
+        trace.stop()
+
         useToast()({
           title: 'เกิดข้อผิดพลาด',
           description: 'ไม่สามารถบันทึกข้อมูลได้สำเร็จ กรุณาลองใหม่อีกครั้ง',
