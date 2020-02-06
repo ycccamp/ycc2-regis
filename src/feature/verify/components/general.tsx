@@ -20,7 +20,7 @@ const GeneralField: React.FC<IGeneralFieldProps> = props => {
                 {i + 1}. {value}
               </b>
               <br />
-              {data[key]}
+              <p style={{ whiteSpace: 'pre-wrap' }}>{data[key]}</p>
             </Text>
           </Flex>
         ))}

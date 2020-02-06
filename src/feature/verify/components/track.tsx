@@ -20,7 +20,7 @@ const TrackField: React.FC<ITrackFieldProps> = props => {
                 {i + 1}. <div dangerouslySetInnerHTML={{ __html: value }} />
               </b>
               <br />
-              {data[key]}
+              <p style={{ whiteSpace: 'pre-wrap' }}>{data[key]}</p>
             </Text>
           </Flex>
         ))}
