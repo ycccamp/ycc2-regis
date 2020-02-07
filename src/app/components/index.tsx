@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import {
   Box,
+  Button,
   CSSReset,
   Divider,
   Flex,
@@ -11,6 +12,8 @@ import {
 import FullStory, { identify } from 'react-fullstory'
 import { theme } from '../theme'
 
+import 'firebase/auth'
+import { firebase } from '../../core/services/firebase'
 import { useAuth } from '../../core/services/useAuth'
 
 import Auth from './auth'
@@ -50,9 +53,26 @@ const AppComponent: React.FC<IProps> = props => {
             borderRadius={4}
             p={10}
             bg='white'>
-            <Heading size='lg' pb={5}>
-              สมัครเข้าค่าย Young Creator's Camp
-            </Heading>
+            <Flex pb={5} wrap='wrap' align='center'>
+              <Heading size='lg' width={['100%', 'auto']}>
+                สมัครเข้าค่าย Young Creator's Camp
+              </Heading>
+              {auth !== null ? (
+                <React.Fragment>
+                  <Box mx='auto' />
+                  <Box pt={[4, 0]}>
+                    <Button
+                      onClick={() =>
+                        firebase()
+                          .auth()
+                          .signOut()
+                      }>
+                      ออกจากระบบ
+                    </Button>
+                  </Box>
+                </React.Fragment>
+              ) : null}
+            </Flex>
             <Divider />
             <Box pt={5} />
             {auth === null ? (
