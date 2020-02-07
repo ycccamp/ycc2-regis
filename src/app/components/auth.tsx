@@ -17,15 +17,14 @@ const AuthComponent: React.FC<IAuthProps> = props => {
 
   const [isLoginButtonLoad, setIsLoginButtonLoad] = useState<boolean>(false)
 
-  const loginHandler = () => {
-    setIsLoginButtonLoad(true)
+  const instance = firebase()
 
-    const instance = firebase()
-    const provider = new auth.FacebookAuthProvider()
+  const loginHandler = (provider: auth.AuthProvider) => {
+    setIsLoginButtonLoad(true)
 
     instance
       .auth()
-      .signInWithPopup(provider)
+      .signInWithRedirect(provider)
       .catch(e => {
         if (e === 'auth/popup-closed-by-user') {
           // TODO: Handle auth error
@@ -39,6 +38,8 @@ const AuthComponent: React.FC<IAuthProps> = props => {
   }
 
   useEffect(() => {
+    instance.auth().getRedirectResult()
+
     if (user === null) {
       setStage(1)
     } else {
@@ -66,7 +67,7 @@ const AuthComponent: React.FC<IAuthProps> = props => {
           </Text>
           <Button
             isLoading={isLoginButtonLoad}
-            onClick={loginHandler}
+            onClick={() => loginHandler(new auth.FacebookAuthProvider())}
             variantColor='flory'
             willChange='transform'
             _hover={{
