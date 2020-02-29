@@ -12,7 +12,7 @@ import 'firebase/performance'
 import { firebase } from '../core/services/firebase'
 import { useAuth } from '../core/services/useAuth'
 
-const isClosed = true
+const isClosed = false
 
 const IndexPage: NextPage = props => {
   const user = useAuth()
