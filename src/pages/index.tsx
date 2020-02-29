@@ -12,6 +12,8 @@ import 'firebase/performance'
 import { firebase } from '../core/services/firebase'
 import { useAuth } from '../core/services/useAuth'
 
+const isClosed = true
+
 const IndexPage: NextPage = props => {
   const user = useAuth()
 
@@ -102,8 +104,12 @@ const IndexPage: NextPage = props => {
     const instance = firebase()
 
     if (user !== null) {
-      instance.analytics().logEvent('auth')
-      userHandler(user)
+      if (isClosed) {
+        Router.push('/closed/')
+      } else {
+        instance.analytics().logEvent('auth')
+        userHandler(user)
+      }
     }
   }, [user])
 
